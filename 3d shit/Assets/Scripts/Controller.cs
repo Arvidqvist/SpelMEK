@@ -248,7 +248,6 @@ public class Controller : MonoBehaviour
                         Debug.Log("BBBBBBB");
                     }
                 }
-
             }
             else
             {
@@ -277,10 +276,10 @@ public class Controller : MonoBehaviour
         Quaternion cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
 
         //FUNCTIONAL CAMERA ROTATION IN THE X- AND Y-AXISES
-        //Quaternion localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.y);
+        Quaternion localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.y);
 
         //FUNCTIONAL CAMERA ROTATION IN ALL AXISES
-        Quaternion localRotation = Quaternion.Inverse(transform.rotation) * cameraRotation;
+        //Quaternion localRotation = Quaternion.Inverse(transform.rotation) * cameraRotation;
 
         if (haveThirdPersonCameraActive)
         {
