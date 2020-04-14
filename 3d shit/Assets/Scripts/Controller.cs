@@ -272,7 +272,6 @@ public class Controller : MonoBehaviour
         //FUNCTIONAL CAMERA ROTATION IN THE X- AND Y-AXISES
         Quaternion localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.y);
 
-
         //FUNCTIONAL CAMERA ROTATION IN ALL AXISES
         //Quaternion localRotation = Quaternion.Inverse(transform.rotation) * cameraRotation;
 
