@@ -102,7 +102,7 @@ public class Controller : MonoBehaviour
     float rotationX;
     float rotationY;
     float gravityFlipAngle;
-    int doubleJumped = 1;
+
     Vector3 gravity;
 
     Vector3 point1;
@@ -130,16 +130,10 @@ public class Controller : MonoBehaviour
         gravity = gravityVector * gravityModifier * Time.deltaTime;
         velocity += gravity;
 
-        Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, groundCheckDistance + skinWidth, collisionLayer);
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Jump(groundCheck);
+            Jump();
         }
-        if (groundCheck.collider != null && doubleJumped != 0)
-        {
-            doubleJumped = 1;
-        }
-
         point1 = transform.position + center + (-gravityVector * ((height / 2) - radius));
         point2 = transform.position + center + (gravityVector * ((height / 2) - radius));
 
@@ -322,16 +316,14 @@ public class Controller : MonoBehaviour
         }
     }
 
-    void Jump(RaycastHit groundCheck)
+    void Jump()
     {
-        //Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, groundCheckDistance + skinWidth, collisionLayer);
+        Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, groundCheckDistance + skinWidth, collisionLayer);
 
-        if (groundCheck.collider != null || doubleJumped < 2)
+        if (groundCheck.collider != null)
         {
             velocity += -gravityVector * jumpHeight;
-            doubleJumped++;
         }
-        
     }
 
     Vector3 CalculateNormalForce(Vector3 velocity, Vector3 normal)
