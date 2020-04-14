@@ -56,6 +56,9 @@ public class Controller : MonoBehaviour
     [Tooltip("How high this transform can jump")]
     private float jumpHeight = 4;
     [SerializeField]
+    [Tooltip("how much power your dash has")]
+    private float dashPower = 5;
+    [SerializeField]
     [Tooltip("The layer that this transform will collide with")]
     private LayerMask collisionLayer = new LayerMask();
 
@@ -103,6 +106,7 @@ public class Controller : MonoBehaviour
     float rotationY;
     float gravityFlipAngle;
     int doubleJumped = 1;
+    bool dashed = false;
     Vector3 gravity;
 
     Vector3 point1;
@@ -131,19 +135,32 @@ public class Controller : MonoBehaviour
         velocity += gravity;
 
         Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, groundCheckDistance + skinWidth, collisionLayer);
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Jump(groundCheck);
-        }
-        if (groundCheck.collider != null && doubleJumped != 0)
-        {
-            doubleJumped = 1;
-        }
 
         point1 = transform.position + center + (-gravityVector * ((height / 2) - radius));
         point2 = transform.position + center + (gravityVector * ((height / 2) - radius));
 
         Vector3 interactDirection = new Vector3(playerCamera.forward.x, 0, playerCamera.forward.z);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump(groundCheck);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashed == false)
+        {
+            velocity += interactDirection.normalized * dashPower;
+            dashed = true;
+        }
+        if (groundCheck.collider != null && doubleJumped != 0 || groundCheck.collider != null && dashed != false)
+        {
+            doubleJumped = 1;
+            dashed = false;
+
+        }
+
+        //point1 = transform.position + center + (-gravityVector * ((height / 2) - radius));
+        //point2 = transform.position + center + (gravityVector * ((height / 2) - radius));
+
+        //Vector3 interactDirection = new Vector3(playerCamera.forward.x, 0, playerCamera.forward.z);
 
         Physics.CapsuleCast(point1, point2, radius, interactDirection.normalized, out RaycastHit forwardHit, 0.8f, collisionLayer);
 
