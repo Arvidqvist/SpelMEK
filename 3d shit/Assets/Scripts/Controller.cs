@@ -366,7 +366,7 @@ public class Controller : MonoBehaviour
     {
         if (groundcheck.collider != null)
         {
-            if (groundcheck.collider.tag == "Moveable Plattform")
+            if (groundcheck.collider.tag == "Moveable Platform")
             {
                 this.transform.SetParent(groundcheck.collider.transform);
                 return;

@@ -1098,17 +1098,17 @@ PrefabInstance:
     - target: {fileID: 9211564968113040599, guid: 0ec090f1e4b5d77469a2628b9c48493f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 58.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9211564968113040599, guid: 0ec090f1e4b5d77469a2628b9c48493f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 39.2
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 9211564968113040599, guid: 0ec090f1e4b5d77469a2628b9c48493f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 109.6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9211564968113040599, guid: 0ec090f1e4b5d77469a2628b9c48493f,
         type: 3}
@@ -2468,7 +2468,7 @@ PrefabInstance:
     - target: {fileID: 7993069199930376408, guid: 147a7e8f0f401bf41b707d322eb3b727,
         type: 3}
       propertyPath: m_TagString
-      value: Moveable Plattform
+      value: Moveable Platform
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 147a7e8f0f401bf41b707d322eb3b727, type: 3}
@@ -2542,7 +2542,7 @@ PrefabInstance:
     - target: {fileID: 7993069199930376408, guid: 147a7e8f0f401bf41b707d322eb3b727,
         type: 3}
       propertyPath: m_TagString
-      value: Moveable Plattform
+      value: Moveable Platform
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 147a7e8f0f401bf41b707d322eb3b727, type: 3}
@@ -3160,7 +3160,7 @@ PrefabInstance:
     - target: {fileID: 7993069199930376408, guid: 147a7e8f0f401bf41b707d322eb3b727,
         type: 3}
       propertyPath: m_TagString
-      value: Moveable Plattform
+      value: Moveable Platform
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 147a7e8f0f401bf41b707d322eb3b727, type: 3}
@@ -3422,7 +3422,7 @@ PrefabInstance:
     - target: {fileID: 7993069199930376408, guid: 147a7e8f0f401bf41b707d322eb3b727,
         type: 3}
       propertyPath: m_TagString
-      value: Moveable Plattform
+      value: Moveable Platform
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 147a7e8f0f401bf41b707d322eb3b727, type: 3}

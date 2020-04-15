@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Switches
   - Moveable Object
-  - Moveable Plattform
+  - Moveable Platform
   layers:
   - Default
   - TransparentFX
