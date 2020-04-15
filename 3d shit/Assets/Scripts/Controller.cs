@@ -156,6 +156,7 @@ public class Controller : MonoBehaviour
             dashed = false;
 
         }
+        movingPlattform(groundCheck);
 
         //point1 = transform.position + center + (-gravityVector * ((height / 2) - radius));
         //point2 = transform.position + center + (gravityVector * ((height / 2) - radius));
@@ -359,6 +360,19 @@ public class Controller : MonoBehaviour
             return -projection;
         }
         return Vector3.zero;
+    }
+
+    void movingPlattform(RaycastHit groundcheck)
+    {
+        if (groundcheck.collider != null)
+        {
+            if (groundcheck.collider.tag == "Moveable Plattform")
+            {
+                this.transform.SetParent(groundcheck.collider.transform);
+                return;
+            }
+        }
+        this.transform.SetParent(null);
     }
 
     void MakeSpeed()
