@@ -2465,6 +2465,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab Platform (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7993069199930376408, guid: 147a7e8f0f401bf41b707d322eb3b727,
+        type: 3}
+      propertyPath: m_TagString
+      value: Moveable Plattform
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 147a7e8f0f401bf41b707d322eb3b727, type: 3}
 --- !u!1001 &1561274053
@@ -2533,6 +2538,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prefab Platform (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7993069199930376408, guid: 147a7e8f0f401bf41b707d322eb3b727,
+        type: 3}
+      propertyPath: m_TagString
+      value: Moveable Plattform
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 147a7e8f0f401bf41b707d322eb3b727, type: 3}
@@ -3147,6 +3157,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab Platform (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7993069199930376408, guid: 147a7e8f0f401bf41b707d322eb3b727,
+        type: 3}
+      propertyPath: m_TagString
+      value: Moveable Plattform
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 147a7e8f0f401bf41b707d322eb3b727, type: 3}
 --- !u!1001 &1750515738
@@ -3403,6 +3418,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prefab Platform (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7993069199930376408, guid: 147a7e8f0f401bf41b707d322eb3b727,
+        type: 3}
+      propertyPath: m_TagString
+      value: Moveable Plattform
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 147a7e8f0f401bf41b707d322eb3b727, type: 3}
