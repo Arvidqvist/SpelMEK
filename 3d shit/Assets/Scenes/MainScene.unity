@@ -2598,7 +2598,7 @@ PrefabInstance:
     - target: {fileID: 3260942970331375104, guid: f8e4d6b90f4707d418526694acb9741b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30
+      value: 31.8
       objectReference: {fileID: 0}
     - target: {fileID: 3260942970331375104, guid: f8e4d6b90f4707d418526694acb9741b,
         type: 3}
@@ -2608,7 +2608,7 @@ PrefabInstance:
     - target: {fileID: 3260942970331375104, guid: f8e4d6b90f4707d418526694acb9741b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 40
+      value: 9.7
       objectReference: {fileID: 0}
     - target: {fileID: 3260942970331375104, guid: f8e4d6b90f4707d418526694acb9741b,
         type: 3}
@@ -2668,12 +2668,17 @@ PrefabInstance:
     - target: {fileID: 4800582252817022484, guid: f8e4d6b90f4707d418526694acb9741b,
         type: 3}
       propertyPath: m_Name
-      value: Wall1 (1)
+      value: Improved moving platform
       objectReference: {fileID: 0}
     - target: {fileID: 4800582252817022484, guid: f8e4d6b90f4707d418526694acb9741b,
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4800582252817022484, guid: f8e4d6b90f4707d418526694acb9741b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Moveable Platform
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8e4d6b90f4707d418526694acb9741b, type: 3}
@@ -3657,6 +3662,32 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1803908810}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1839337592 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4800582252817022484, guid: f8e4d6b90f4707d418526694acb9741b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1280593388}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1839337593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839337592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c051f5118aeba4a82fbf5997ac2b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lengthToMove: 15
+  startposition: {fileID: 0}
+  frozen: 0
+  timeTillDefrosted: 0
+  tester: 0
+  freezeTestTime: 5
+  Direction: {x: 0, y: 1, z: 0}
+  platformSpeed: 5
 --- !u!1001 &1956236399
 PrefabInstance:
   m_ObjectHideFlags: 0
