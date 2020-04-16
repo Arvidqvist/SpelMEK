@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlatformMoving : MovingPlatformStateMachine
 {
@@ -12,6 +10,7 @@ public class PlatformMoving : MovingPlatformStateMachine
     public float timeTillDefrosted;
     public bool tester = false;
     public float freezeTestTime = 5f;
+    public Vector3 Direction = new Vector3(0, 1, 0);
     public float platformSpeed = 5f;
     public float movementTimer = 10f;
     public Vector3 velocity;

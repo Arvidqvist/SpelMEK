@@ -10,6 +10,7 @@
     State machine
  */
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Controller : MonoBehaviour
@@ -61,6 +62,9 @@ public class Controller : MonoBehaviour
     [SerializeField]
     [Tooltip("The layer that this transform will collide with")]
     private LayerMask collisionLayer = new LayerMask();
+    [SerializeField]
+    [Tooltip("The layer that this transform will be able to gravity flip with")]
+    private LayerMask cubeLayer = new LayerMask();
 
     [Header("Camera Settings")]
 
@@ -90,6 +94,10 @@ public class Controller : MonoBehaviour
     [Tooltip("How fast the transform moves, expressed in 3-dimenaional space")]
     private Vector3 velocity;
 
+    [SerializeField]
+    [Tooltip("Where the player should respawn in case of death")]
+    private Transform respawnPoint;
+
     private Vector3 direction;
     private float pushForce = 10;
 
@@ -112,6 +120,11 @@ public class Controller : MonoBehaviour
     Vector3 point1;
     Vector3 point2;
 
+    private List<Transform> gravityBoxSides = new List<Transform>();
+
+    //This is the layer that the gravity will flip to.
+    private LayerMask gravityFlipLayer;
+
     void Awake()
     {
         playerCamera = Camera.main.transform;
@@ -121,6 +134,15 @@ public class Controller : MonoBehaviour
         radius = collider.radius;
 
         cameraRadius = playerCamera.GetComponent<SphereCollider>().radius;
+
+        Transform gravityBoxParent = transform.Find("GravityCubeParent");
+
+        foreach (Transform child in gravityBoxParent)
+        {
+            gravityBoxSides.Add(child);
+        }
+
+        gravityFlipLayer = collisionLayer;
     }
 
     void Update()
@@ -154,9 +176,14 @@ public class Controller : MonoBehaviour
         {
             doubleJumped = 1;
             dashed = false;
-
         }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            ShowGravityBoxSides();
+        }
+
         movingPlattform(groundCheck);
+        killZone(groundCheck);
 
         //point1 = transform.position + center + (-gravityVector * ((height / 2) - radius));
         //point2 = transform.position + center + (gravityVector * ((height / 2) - radius));
@@ -165,7 +192,7 @@ public class Controller : MonoBehaviour
 
         Physics.CapsuleCast(point1, point2, radius, interactDirection.normalized, out RaycastHit forwardHit, 0.8f, collisionLayer);
 
-        Debug.Log(interactDirection.normalized + "  <---camer.forward// direction.normalised ----> " + playerCamera.forward);
+        //Debug.Log(interactDirection.normalized + "  <---camer.forward// direction.normalised ----> " + playerCamera.forward);
 
         if (forwardHit.collider != null)
         {
@@ -180,9 +207,25 @@ public class Controller : MonoBehaviour
         transform.position += velocity * Time.deltaTime;
     }
 
+    private void ShowGravityBoxSides()
+    {
+        foreach (Transform boxSide in gravityBoxSides)
+        {
+            if (boxSide.GetComponent<MeshRenderer>().enabled == false)
+            {
+                boxSide.GetComponent<MeshRenderer>().enabled = true;
+            }
+            else
+            {
+                boxSide.GetComponent<MeshRenderer>().enabled = false;
+            }
+        }
+
+        gravityFlipLayer = (gravityFlipLayer == collisionLayer) ? cubeLayer : collisionLayer;
+    }
+
     private void SetGravity()
     {
-
         Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, groundCheckDistance + skinWidth, collisionLayer);
 
         if (groundCheck.collider != null)
@@ -192,14 +235,17 @@ public class Controller : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G) && flipTokens != 0)
         {
-            Physics.Raycast(playerCamera.position, playerCamera.transform.forward, out RaycastHit rayHit, 100f, collisionLayer);
+            Physics.Raycast(playerCamera.position, playerCamera.transform.forward, out RaycastHit rayHit, 100f, gravityFlipLayer);
 
-            gravityVector = -rayHit.normal;
-            transform.up = rayHit.normal;
+            if (rayHit.collider != null)
+            {
+                gravityVector = -rayHit.normal;
+                transform.up = rayHit.normal;
+                Debug.Log("rayHit.collider = " + rayHit.collider);
+            }
 
             flipTokens--;
         }
-
     }
 
     private void Collision()
@@ -285,23 +331,42 @@ public class Controller : MonoBehaviour
             hit.collider.GetComponent<MoveAbleObjects>().Move(direction * pushForce * Time.deltaTime);
         }
     }
+
     void ControlCamera()
     {
-        rotationX -= Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        rotationX += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
         rotationY += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
         rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
 
-        Quaternion cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
+        Quaternion cameraRotation;
+
+        if (transform.rotation.z != 0)
+        {
+            Debug.Log("Rotation is weird.");
+            cameraRotation = Quaternion.Euler(rotationY, rotationX, 0);
+        }
+        else
+        {
+            Debug.Log("Rotation is NOT weird.");
+            cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
+        }
 
         //FUNCTIONAL CAMERA ROTATION IN THE X- AND Y-AXISES
         Quaternion localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.y);
+
+        //Quaternion l = Quaternion.Euler(velocity);
+
+        //Debug.Log(localRotation + ", " + l);
+
+        //WEIRD CAMERA IN THE X- AND Y-AXIS
+        //Quaternion localRotation = transform.rotation * xRot * yRot;
 
         //FUNCTIONAL CAMERA ROTATION IN ALL AXISES
         //Quaternion localRotation = Quaternion.Inverse(transform.rotation) * cameraRotation;
 
         if (haveThirdPersonCameraActive)
         {
-            Vector3 cameraRelationShipVector = localRotation * cameraRotation * cameraOffset;
+            Vector3 cameraRelationShipVector = cameraRotation * cameraOffset;
 
             playerCamera.position = transform.position + cameraRelationShipVector;
 
@@ -309,12 +374,12 @@ public class Controller : MonoBehaviour
 
             Physics.SphereCast(transform.position, cameraRadius, playerCamera.position, out RaycastHit cameraHit, (cameraRelationShipVector.magnitude - skinWidth), collisionLayer);
 
-            if (cameraHit.collider != null && (cameraRelationShipVector.magnitude - cameraHit.distance) > cameraHit.distance)
-            {
-                //Debug.Log("cameraHit.collider is " + cameraHit.collider + ", cameraRelationShipVector.magnitude is " + cameraRelationShipVector.magnitude +
-                //    ", cameraHit.distance is " + cameraHit.distance);
-                playerCamera.position = cameraHit.point;
-            }
+            //if (cameraHit.collider != null && (cameraRelationShipVector.magnitude - cameraHit.distance) > cameraHit.distance)
+            //{
+            //    //Debug.Log("cameraHit.collider is " + cameraHit.collider + ", cameraRelationShipVector.magnitude is " + cameraRelationShipVector.magnitude +
+            //    //    ", cameraHit.distance is " + cameraHit.distance);
+            //    playerCamera.position = cameraHit.point;
+            //}
 
             //TODO: Fix camera not "sticking" to walls
             if (Physics.Raycast(transform.position, playerCamera.transform.position, float.MaxValue, collisionLayer))
@@ -366,13 +431,24 @@ public class Controller : MonoBehaviour
     {
         if (groundcheck.collider != null)
         {
-            if (groundcheck.collider.tag == "Moveable Plattform")
+            if (groundcheck.collider.tag == "Moveable Platform")
             {
                 this.transform.SetParent(groundcheck.collider.transform);
                 return;
             }
         }
         this.transform.SetParent(null);
+    }
+
+    void killZone(RaycastHit groundcheck)
+    {
+        if (groundcheck.collider != null)
+        {
+            if (groundcheck.collider.tag == "Killzone")
+            {
+                this.transform.position = respawnPoint.transform.position;
+            }
+        }
     }
 
     void MakeSpeed()
@@ -411,9 +487,9 @@ public class Controller : MonoBehaviour
         }
     }
 
-    void Decelerate(Vector2 direction)
+    void Decelerate(Vector3 direction)
     {
-        Vector2 tempVelocity = velocity;
+        Vector3 tempVelocity = velocity;
 
         tempVelocity -= tempVelocity * deceleration * Time.deltaTime;
 
@@ -421,12 +497,12 @@ public class Controller : MonoBehaviour
 
         if (groundCheck.collider != null)
         {
-            velocity.x = tempVelocity.x;
+            velocity = tempVelocity;
         }
 
         if (velocity.magnitude < minimumSpeedCutoff)
         {
-            velocity.x = 0;
+            velocity = new Vector3(0, 0, 0);
         }
     }
 
