@@ -244,7 +244,6 @@ public class Controller : MonoBehaviour
                 Debug.Log("rayHit.collider = " + rayHit.collider);
             }
 
-
             flipTokens--;
         }
     }
@@ -339,19 +338,25 @@ public class Controller : MonoBehaviour
         rotationY += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
         rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
 
-        if (rotationY > 0)
-        {
-            Debug.Log("Camera is moving up!");
-        }
+        Quaternion cameraRotation;
 
-        Quaternion cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
+        if (transform.rotation.z != 0)
+        {
+            Debug.Log("Rotation is weird.");
+            cameraRotation = Quaternion.Euler(rotationY, rotationX, 0);
+        }
+        else
+        {
+            Debug.Log("Rotation is NOT weird.");
+            cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
+        }
 
         //FUNCTIONAL CAMERA ROTATION IN THE X- AND Y-AXISES
         Quaternion localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.y);
 
-        Quaternion l = Quaternion.Euler(velocity);
+        //Quaternion l = Quaternion.Euler(velocity);
 
-        Debug.Log(localRotation + ", " + l);
+        //Debug.Log(localRotation + ", " + l);
 
         //WEIRD CAMERA IN THE X- AND Y-AXIS
         //Quaternion localRotation = transform.rotation * xRot * yRot;
@@ -361,7 +366,7 @@ public class Controller : MonoBehaviour
 
         if (haveThirdPersonCameraActive)
         {
-            Vector3 cameraRelationShipVector = localRotation * cameraRotation * cameraOffset;
+            Vector3 cameraRelationShipVector = cameraRotation * cameraOffset;
 
             playerCamera.position = transform.position + cameraRelationShipVector;
 
