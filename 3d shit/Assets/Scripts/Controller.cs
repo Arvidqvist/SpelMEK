@@ -476,12 +476,12 @@ public class Controller : MonoBehaviour
 
         if (groundCheck.collider != null)
         {
-            velocity.x = tempVelocity.x;
+            velocity = tempVelocity;
         }
 
         if (velocity.magnitude < minimumSpeedCutoff)
         {
-            velocity.x = 0;
+            velocity = new Vector3(0, 0, 0);
         }
     }
 
