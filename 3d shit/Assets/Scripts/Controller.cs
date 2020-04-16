@@ -136,7 +136,6 @@ public class Controller : MonoBehaviour
         cameraRadius = playerCamera.GetComponent<SphereCollider>().radius;
 
         Transform gravityBoxParent = transform.Find("GravityCubeParent");
-        Debug.Log("gravityBoxParent is " + gravityBoxParent);
 
         foreach (Transform child in gravityBoxParent)
         {
@@ -193,7 +192,7 @@ public class Controller : MonoBehaviour
 
         Physics.CapsuleCast(point1, point2, radius, interactDirection.normalized, out RaycastHit forwardHit, 0.8f, collisionLayer);
 
-        Debug.Log(interactDirection.normalized + "  <---camer.forward// direction.normalised ----> " + playerCamera.forward);
+        //Debug.Log(interactDirection.normalized + "  <---camer.forward// direction.normalised ----> " + playerCamera.forward);
 
         if (forwardHit.collider != null)
         {
@@ -223,7 +222,8 @@ public class Controller : MonoBehaviour
         }
 
         gravityFlipLayer = (gravityFlipLayer == collisionLayer) ? cubeLayer : collisionLayer;
-        Debug.Log(gravityFlipLayer.ToString() + " *************'");
+
+        Debug.Log(gravityFlipLayer.value + " *************'");
     }
 
     private void SetGravity()
@@ -329,6 +329,7 @@ public class Controller : MonoBehaviour
             hit.collider.GetComponent<MoveAbleObjects>().Move(direction * pushForce * Time.deltaTime);
         }
     }
+
     void ControlCamera()
     {
         rotationX -= Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
@@ -353,12 +354,12 @@ public class Controller : MonoBehaviour
 
             Physics.SphereCast(transform.position, cameraRadius, playerCamera.position, out RaycastHit cameraHit, (cameraRelationShipVector.magnitude - skinWidth), collisionLayer);
 
-            if (cameraHit.collider != null && (cameraRelationShipVector.magnitude - cameraHit.distance) > cameraHit.distance)
-            {
-                //Debug.Log("cameraHit.collider is " + cameraHit.collider + ", cameraRelationShipVector.magnitude is " + cameraRelationShipVector.magnitude +
-                //    ", cameraHit.distance is " + cameraHit.distance);
-                playerCamera.position = cameraHit.point;
-            }
+            //if (cameraHit.collider != null && (cameraRelationShipVector.magnitude - cameraHit.distance) > cameraHit.distance)
+            //{
+            //    //Debug.Log("cameraHit.collider is " + cameraHit.collider + ", cameraRelationShipVector.magnitude is " + cameraRelationShipVector.magnitude +
+            //    //    ", cameraHit.distance is " + cameraHit.distance);
+            //    playerCamera.position = cameraHit.point;
+            //}
 
             //TODO: Fix camera not "sticking" to walls
             if (Physics.Raycast(transform.position, playerCamera.transform.position, float.MaxValue, collisionLayer))
