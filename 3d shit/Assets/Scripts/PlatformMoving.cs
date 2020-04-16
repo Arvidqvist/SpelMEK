@@ -2,17 +2,21 @@
 
 public class PlatformMoving : MovingPlatformStateMachine
 {
+    [Tooltip("this gets set to the startposition of your platform Automatically")]
     public Vector3 startPosition;
+    [Tooltip("Set this position to the position you want your platform to move to")]
     public Vector3 endPositioon;
+    [Tooltip("the position the platform is currently moving towards (dont touch! it sets it self")]
     public Vector3 targetPosition;
+    [Tooltip("click this to test the freeze")]
     public bool frozen = false;
-    public string currentState;
-    public float timeTillDefrosted;
-    public bool tester = false;
+    [Tooltip("The in time of the defreezingEvent of the platform")]
+    public float timeOfDefreezing;
+    [Tooltip("The Amount of time the platfrom will be frozen when the bool Frozen is triggered")]
     public float freezeTestTime = 5f;
-    public Vector3 Direction = new Vector3(0, 1, 0);
+    [Tooltip("The speed of the platform set to whatever you need")]
     public float platformSpeed = 5f;
-    public float movementTimer = 10f;
+    [Tooltip("Sets itself and will be used so that the player will inherit the speed of the platform")]
     public Vector3 velocity;
 
     void Start()
@@ -106,11 +110,11 @@ public class FreezeState : BasePlatformState
     public override void Start()
     {
         Debug.Log("tog mig in i Freeze state");
-        PlatformMoving.timeTillDefrosted = Time.time + PlatformMoving.freezeTestTime;
+        PlatformMoving.timeOfDefreezing = Time.time + PlatformMoving.freezeTestTime;
     }
     public override void Movement()
     {
-            if (Time.time > PlatformMoving.timeTillDefrosted)
+            if (Time.time > PlatformMoving.timeOfDefreezing)
             {
                 PlatformMoving.frozen = false;
                 PlatformMoving.SetState(new MovingState(PlatformMoving));
