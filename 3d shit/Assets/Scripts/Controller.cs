@@ -237,8 +237,13 @@ public class Controller : MonoBehaviour
         {
             Physics.Raycast(playerCamera.position, playerCamera.transform.forward, out RaycastHit rayHit, 100f, gravityFlipLayer);
 
-            gravityVector = -rayHit.normal;
-            transform.up = rayHit.normal;
+            if (rayHit.collider != null)
+            {
+                gravityVector = -rayHit.normal;
+                transform.up = rayHit.normal;
+                Debug.Log("rayHit.collider = " + rayHit.collider);
+            }
+
 
             flipTokens--;
         }
@@ -328,30 +333,31 @@ public class Controller : MonoBehaviour
         }
     }
 
-    float rotX = 0;
-    float rotY = 0;
-
     void ControlCamera()
     {
-        //float fx = Input.GetAxisRaw("Mouse X");
-        //float fy = Input.GetAxisRaw("Mouse Y");
-
-        //Debug.Log("fx: " + fx + ", fy: " + fy);
-
         rotationX += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
         rotationY += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
         rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
 
+        if (rotationY > 0)
+        {
+            Debug.Log("Camera is moving up!");
+        }
+
         Quaternion cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
 
         //FUNCTIONAL CAMERA ROTATION IN THE X- AND Y-AXISES
-        //Quaternion localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.y);
+        Quaternion localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.y);
+
+        Quaternion l = Quaternion.Euler(velocity);
+
+        Debug.Log(localRotation + ", " + l);
 
         //WEIRD CAMERA IN THE X- AND Y-AXIS
         //Quaternion localRotation = transform.rotation * xRot * yRot;
 
         //FUNCTIONAL CAMERA ROTATION IN ALL AXISES
-        Quaternion localRotation = Quaternion.Inverse(transform.rotation) * cameraRotation;
+        //Quaternion localRotation = Quaternion.Inverse(transform.rotation) * cameraRotation;
 
         if (haveThirdPersonCameraActive)
         {
