@@ -90,6 +90,10 @@ public class Controller : MonoBehaviour
     [Tooltip("How fast the transform moves, expressed in 3-dimenaional space")]
     private Vector3 velocity;
 
+    [SerializeField]
+    [Tooltip("Where the player should respawn in case of death")]
+    private Transform respawnPoint;
+
     private Vector3 direction;
     private float pushForce = 10;
 
@@ -157,6 +161,7 @@ public class Controller : MonoBehaviour
 
         }
         movingPlattform(groundCheck);
+        killZone(groundCheck);
 
         //point1 = transform.position + center + (-gravityVector * ((height / 2) - radius));
         //point2 = transform.position + center + (gravityVector * ((height / 2) - radius));
@@ -373,6 +378,17 @@ public class Controller : MonoBehaviour
             }
         }
         this.transform.SetParent(null);
+    }
+
+    void killZone(RaycastHit groundcheck)
+    {
+        if (groundcheck.collider != null)
+        {
+            if (groundcheck.collider.tag == "Killzone")
+            {
+                this.transform.position = respawnPoint.transform.position;
+            }
+        }
     }
 
     void MakeSpeed()

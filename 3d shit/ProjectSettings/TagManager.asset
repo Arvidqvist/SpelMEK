@@ -7,6 +7,7 @@ TagManager:
   - Switches
   - Moveable Object
   - Moveable Platform
+  - Killzone
   layers:
   - Default
   - TransparentFX
