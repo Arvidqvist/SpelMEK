@@ -10,6 +10,7 @@
     State machine
  */
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Controller : MonoBehaviour
@@ -61,6 +62,9 @@ public class Controller : MonoBehaviour
     [SerializeField]
     [Tooltip("The layer that this transform will collide with")]
     private LayerMask collisionLayer = new LayerMask();
+    [SerializeField]
+    [Tooltip("The layer that this transform will be able to gravity flip with")]
+    private LayerMask gravityFlipLayer = new LayerMask();
 
     [Header("Camera Settings")]
 
@@ -112,6 +116,9 @@ public class Controller : MonoBehaviour
     Vector3 point1;
     Vector3 point2;
 
+    [SerializeField]
+    private List<Transform> gravityBoxSides = new List<Transform>();
+
     void Awake()
     {
         playerCamera = Camera.main.transform;
@@ -121,6 +128,14 @@ public class Controller : MonoBehaviour
         radius = collider.radius;
 
         cameraRadius = playerCamera.GetComponent<SphereCollider>().radius;
+
+        Transform gravityBoxParent = transform.Find("GravityCubeParent");
+        Debug.Log("gravityBoxParent is " + gravityBoxParent);
+
+        foreach (Transform child in gravityBoxParent)
+        {
+            gravityBoxSides.Add(child);
+        }
     }
 
     void Update()
@@ -154,8 +169,12 @@ public class Controller : MonoBehaviour
         {
             doubleJumped = 1;
             dashed = false;
-
         }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            ShowGravityBoxSides();
+        }
+
         movingPlattform(groundCheck);
 
         //point1 = transform.position + center + (-gravityVector * ((height / 2) - radius));
@@ -180,9 +199,23 @@ public class Controller : MonoBehaviour
         transform.position += velocity * Time.deltaTime;
     }
 
+    private void ShowGravityBoxSides()
+    {
+        foreach (Transform boxSide in gravityBoxSides)
+        {
+            if (boxSide.GetComponent<MeshRenderer>().enabled == false)
+            {
+                boxSide.GetComponent<MeshRenderer>().enabled = true;
+            }
+            else
+            {
+                boxSide.GetComponent<MeshRenderer>().enabled = false;
+            }
+        }
+    }
+
     private void SetGravity()
     {
-
         Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, groundCheckDistance + skinWidth, collisionLayer);
 
         if (groundCheck.collider != null)
@@ -192,14 +225,13 @@ public class Controller : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G) && flipTokens != 0)
         {
-            Physics.Raycast(playerCamera.position, playerCamera.transform.forward, out RaycastHit rayHit, 100f, collisionLayer);
+            Physics.Raycast(playerCamera.position, playerCamera.transform.forward, out RaycastHit rayHit, 100f, gravityFlipLayer);
 
             gravityVector = -rayHit.normal;
             transform.up = rayHit.normal;
 
             flipTokens--;
         }
-
     }
 
     private void Collision()
