@@ -222,8 +222,6 @@ public class Controller : MonoBehaviour
         }
 
         gravityFlipLayer = (gravityFlipLayer == collisionLayer) ? cubeLayer : collisionLayer;
-
-        Debug.Log(gravityFlipLayer.value + " *************'");
     }
 
     private void SetGravity()
@@ -239,8 +237,12 @@ public class Controller : MonoBehaviour
         {
             Physics.Raycast(playerCamera.position, playerCamera.transform.forward, out RaycastHit rayHit, 100f, gravityFlipLayer);
 
-            gravityVector = -rayHit.normal;
-            transform.up = rayHit.normal;
+            if (rayHit.collider != null)
+            {
+                gravityVector = -rayHit.normal;
+                transform.up = rayHit.normal;
+                Debug.Log("rayHit.collider = " + rayHit.collider);
+            }
 
             flipTokens--;
         }
@@ -332,21 +334,39 @@ public class Controller : MonoBehaviour
 
     void ControlCamera()
     {
-        rotationX -= Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        rotationX += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
         rotationY += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
         rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
 
-        Quaternion cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
+        Quaternion cameraRotation;
+
+        if (transform.rotation.z != 0)
+        {
+            Debug.Log("Rotation is weird.");
+            cameraRotation = Quaternion.Euler(rotationY, rotationX, 0);
+        }
+        else
+        {
+            Debug.Log("Rotation is NOT weird.");
+            cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
+        }
 
         //FUNCTIONAL CAMERA ROTATION IN THE X- AND Y-AXISES
         Quaternion localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.y);
+
+        //Quaternion l = Quaternion.Euler(velocity);
+
+        //Debug.Log(localRotation + ", " + l);
+
+        //WEIRD CAMERA IN THE X- AND Y-AXIS
+        //Quaternion localRotation = transform.rotation * xRot * yRot;
 
         //FUNCTIONAL CAMERA ROTATION IN ALL AXISES
         //Quaternion localRotation = Quaternion.Inverse(transform.rotation) * cameraRotation;
 
         if (haveThirdPersonCameraActive)
         {
-            Vector3 cameraRelationShipVector = localRotation * cameraRotation * cameraOffset;
+            Vector3 cameraRelationShipVector = cameraRotation * cameraOffset;
 
             playerCamera.position = transform.position + cameraRelationShipVector;
 
