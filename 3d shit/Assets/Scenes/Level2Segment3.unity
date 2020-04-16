@@ -973,6 +973,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 969cc294b090fd34c8bebfc74619ae70, type: 3}
+--- !u!1 &445845993 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7715817364542709673, guid: 969cc294b090fd34c8bebfc74619ae70,
+    type: 3}
+  m_PrefabInstance: {fileID: 445845992}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &460208674
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1274,6 +1280,11 @@ PrefabInstance:
       propertyPath: connectedDoors.Array.data[0]
       value: 
       objectReference: {fileID: 1883212608}
+    - target: {fileID: 4538863668725456223, guid: 274d09e057b895242a1e7dd26c9a41f4,
+        type: 3}
+      propertyPath: gameController
+      value: 
+      objectReference: {fileID: 445845993}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 274d09e057b895242a1e7dd26c9a41f4, type: 3}
 --- !u!1001 &540956674
