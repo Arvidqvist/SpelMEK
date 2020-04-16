@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlatformMoving : MonoBehaviour
 {
@@ -10,7 +8,7 @@ public class PlatformMoving : MonoBehaviour
     public float timeTillDefrosted;
     public bool tester = false;
     public float freezeTestTime = 5f;
-    public Vector3 Direction = new Vector3(0,1,0);
+    public Vector3 Direction = new Vector3(0, 1, 0);
     public float platformSpeed = 5f;
     // Start is called before the first frame update
     void Start()
@@ -30,7 +28,7 @@ public class PlatformMoving : MonoBehaviour
         {
             Direction = -Direction;
             Debug.Log("turned around now");
-            Debug.Log(transform.position.magnitude + " transform magnitude  "+ startposition.magnitude +" startposition magnitude");
+            //Debug.Log(transform.position.magnitude + " transform magnitude  "+ startposition.magnitude +" startposition magnitude");
         }
 
         if (timeTillDefrosted > Time.time && frozen)

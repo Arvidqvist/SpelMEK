@@ -222,8 +222,6 @@ public class Controller : MonoBehaviour
         }
 
         gravityFlipLayer = (gravityFlipLayer == collisionLayer) ? cubeLayer : collisionLayer;
-
-        Debug.Log(gravityFlipLayer.value + " *************'");
     }
 
     private void SetGravity()
@@ -330,19 +328,30 @@ public class Controller : MonoBehaviour
         }
     }
 
+    float rotX = 0;
+    float rotY = 0;
+
     void ControlCamera()
     {
-        rotationX -= Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        //float fx = Input.GetAxisRaw("Mouse X");
+        //float fy = Input.GetAxisRaw("Mouse Y");
+
+        //Debug.Log("fx: " + fx + ", fy: " + fy);
+
+        rotationX += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
         rotationY += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
         rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
 
         Quaternion cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
 
         //FUNCTIONAL CAMERA ROTATION IN THE X- AND Y-AXISES
-        Quaternion localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.y);
+        //Quaternion localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.y);
+
+        //WEIRD CAMERA IN THE X- AND Y-AXIS
+        //Quaternion localRotation = transform.rotation * xRot * yRot;
 
         //FUNCTIONAL CAMERA ROTATION IN ALL AXISES
-        //Quaternion localRotation = Quaternion.Inverse(transform.rotation) * cameraRotation;
+        Quaternion localRotation = Quaternion.Inverse(transform.rotation) * cameraRotation;
 
         if (haveThirdPersonCameraActive)
         {
