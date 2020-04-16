@@ -64,7 +64,7 @@ public class Controller : MonoBehaviour
     private LayerMask collisionLayer = new LayerMask();
     [SerializeField]
     [Tooltip("The layer that this transform will be able to gravity flip with")]
-    private LayerMask gravityFlipLayer = new LayerMask();
+    private LayerMask cubeLayer = new LayerMask();
 
     [Header("Camera Settings")]
 
@@ -122,6 +122,9 @@ public class Controller : MonoBehaviour
 
     private List<Transform> gravityBoxSides = new List<Transform>();
 
+    //This is the layer that the gravity will flip to.
+    private LayerMask gravityFlipLayer;
+
     void Awake()
     {
         playerCamera = Camera.main.transform;
@@ -139,6 +142,8 @@ public class Controller : MonoBehaviour
         {
             gravityBoxSides.Add(child);
         }
+
+        gravityFlipLayer = collisionLayer;
     }
 
     void Update()
@@ -216,6 +221,9 @@ public class Controller : MonoBehaviour
                 boxSide.GetComponent<MeshRenderer>().enabled = false;
             }
         }
+
+        gravityFlipLayer = (gravityFlipLayer == collisionLayer) ? cubeLayer : collisionLayer;
+        Debug.Log(gravityFlipLayer.ToString() + " *************'");
     }
 
     private void SetGravity()
