@@ -120,7 +120,6 @@ public class Controller : MonoBehaviour
     Vector3 point1;
     Vector3 point2;
 
-    [SerializeField]
     private List<Transform> gravityBoxSides = new List<Transform>();
 
     void Awake()
