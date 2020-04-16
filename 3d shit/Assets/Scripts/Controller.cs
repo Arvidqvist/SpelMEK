@@ -466,9 +466,9 @@ public class Controller : MonoBehaviour
         }
     }
 
-    void Decelerate(Vector2 direction)
+    void Decelerate(Vector3 direction)
     {
-        Vector2 tempVelocity = velocity;
+        Vector3 tempVelocity = velocity;
 
         tempVelocity -= tempVelocity * deceleration * Time.deltaTime;
 
