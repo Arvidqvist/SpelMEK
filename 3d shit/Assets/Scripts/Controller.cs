@@ -361,8 +361,8 @@ public class Controller : MonoBehaviour
         //{
         //Debug.Log("Transform.rotation.y != 0, y-axis movement (normal movement).");
 
-        rotationX -= Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
-        rotationY += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
+        rotationX += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        rotationY -= Input.GetAxisRaw("Mouse X") * mouseSensitivity;
         //rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
 
         cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
