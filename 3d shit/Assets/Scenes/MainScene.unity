@@ -121,6 +121,26 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &33086586 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 410468720819693654, guid: ebcb943880db8b24c85ddaf17b2a8ee8,
+    type: 3}
+  m_PrefabInstance: {fileID: 410468720777102580}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &33086589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33086586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af9fbad6913c50a43a184978d9705144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 368962988}
+  currentCheckPoint: {fileID: 0}
 --- !u!1001 &89905021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -629,6 +649,12 @@ Transform:
   m_Father: {fileID: 900564492}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &368962988 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7715817364542709673, guid: 969cc294b090fd34c8bebfc74619ae70,
+    type: 3}
+  m_PrefabInstance: {fileID: 7715817364732129797}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &368962992 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7715817364542709685, guid: 969cc294b090fd34c8bebfc74619ae70,
@@ -1439,7 +1465,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596651576}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 20, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1717209759}
@@ -3230,7 +3256,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1717209758}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.024426, y: 16.19892, z: -9.188225}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 596651577}
@@ -3570,14 +3596,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c051f5118aeba4a82fbf5997ac2b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lengthToMove: 15
-  startposition: {x: 0, y: 0, z: 0}
+  startPosition: {x: 0, y: 0, z: 0}
+  endPositioon: {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
   frozen: 0
-  timeTillDefrosted: 0
-  tester: 0
+  timeOfDefreezing: 0
   freezeTestTime: 5
-  Direction: {x: 0, y: 1, z: 0}
   platformSpeed: 5
+  velocity: {x: 0, y: 0, z: 0}
 --- !u!1001 &1845222185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4154,6 +4180,26 @@ PrefabInstance:
         type: 3}
       propertyPath: cubeLayer.m_Bits
       value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715817364542709684, guid: 969cc294b090fd34c8bebfc74619ae70,
+        type: 3}
+      propertyPath: cameraOffset.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715817364542709684, guid: 969cc294b090fd34c8bebfc74619ae70,
+        type: 3}
+      propertyPath: maximumCameraAngle
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715817364542709684, guid: 969cc294b090fd34c8bebfc74619ae70,
+        type: 3}
+      propertyPath: minimumCameraAngle
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715817364542709684, guid: 969cc294b090fd34c8bebfc74619ae70,
+        type: 3}
+      propertyPath: haveThirdPersonCameraActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7715817364542709685, guid: 969cc294b090fd34c8bebfc74619ae70,
         type: 3}

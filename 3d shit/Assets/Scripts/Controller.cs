@@ -335,45 +335,45 @@ public class Controller : MonoBehaviour
     void ControlCamera()
     {
         Quaternion cameraRotation;
-        //TODO: Add rotations for all three axises, fix clamping
-        //if (transform.rotation.z == 90 || transform.rotation.z == 270 || transform.rotation.z == -90 || transform.rotation.z == -270)
-        //if (transform.rotation.z != 0)
-        //{
-        //    Debug.Log("Transform.rotation.z != 0, z-axis movement");
 
-        //    rotationX += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
-        //    rotationY += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
-        //    //rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
+        //DO NO REMOVE THIS CODE
+        {
+            //TODO: Add rotations for all three axises, fix clamping
+            //if (transform.rotation.z == 90 || transform.rotation.z == 270 || transform.rotation.z == -90 || transform.rotation.z == -270)
+            //if (transform.rotation.z != 0)
+            //{
+            //    Debug.Log("Transform.rotation.z != 0, z-axis movement");
 
-        //    cameraRotation = Quaternion.Euler(rotationX, 0, rotationY);
-        //}
-        //else if (transform.rotation.x != 0)
-        //{
-        //    Debug.Log("Transform.rotation.x != 0, x-axis movement.");
+            //    rotationX += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
+            //    rotationY += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+            //    //rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
 
-        //    rotationX += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
-        //    rotationY += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
-        //    //rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
+            //    cameraRotation = Quaternion.Euler(rotationX, 0, rotationY);
+            //}
+            //else if (transform.rotation.x != 0)
+            //{
+            //    Debug.Log("Transform.rotation.x != 0, x-axis movement.");
 
-        //    cameraRotation = Quaternion.Euler(0, rotationX, rotationY);
-        //}
-        //else
-        //{
-        //Debug.Log("Transform.rotation.y != 0, y-axis movement (normal movement).");
+            //    rotationX += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+            //    rotationY += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
+            //    //rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
 
-        rotationX += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
-        rotationY -= Input.GetAxisRaw("Mouse X") * mouseSensitivity;
-        //rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
+            //    cameraRotation = Quaternion.Euler(0, rotationX, rotationY);
+            //}
+            //else
+            //{
+            //Debug.Log("Transform.rotation.y != 0, y-axis movement (normal movement).");
+        }
 
-        cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
-        //}
+        rotationX -= Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        rotationY += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
+
+        rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
+
+        cameraRotation = Quaternion.Euler(rotationX, rotationY, -gravityVector.z);
 
         //FUNCTIONAL CAMERA ROTATION IN THE X- AND Y-AXISES
-        Quaternion localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.y);
-
-        //Quaternion l = Quaternion.Euler(velocity);
-
-        //Debug.Log(localRotation + ", " + l);
+        Quaternion localRotation = Quaternion.Euler(0, transform.localEulerAngles.x, transform.localEulerAngles.y);
 
         //WEIRD CAMERA IN THE X- AND Y-AXIS
         //Quaternion localRotation = transform.rotation * xRot * yRot;
@@ -381,27 +381,34 @@ public class Controller : MonoBehaviour
         //FUNCTIONAL CAMERA ROTATION IN ALL AXISES
         //Quaternion localRotation = Quaternion.Inverse(transform.rotation) * cameraRotation;
 
+        Quaternion test = Quaternion.LookRotation(transform.forward, -gravityVector);
+
+        Debug.Log(test);
+
         if (haveThirdPersonCameraActive)
         {
             Vector3 cameraRelationShipVector = cameraRotation * cameraOffset;
 
             playerCamera.position = transform.position + cameraRelationShipVector;
 
-            playerCamera.LookAt(transform, -gravityVector);
+            playerCamera.LookAt(transform, transform.up);
 
-            Physics.SphereCast(transform.position, cameraRadius, playerCamera.position, out RaycastHit cameraHit, (cameraRelationShipVector.magnitude - skinWidth), collisionLayer);
-
-            //if (cameraHit.collider != null && (cameraRelationShipVector.magnitude - cameraHit.distance) > cameraHit.distance)
-            //{
-            //    //Debug.Log("cameraHit.collider is " + cameraHit.collider + ", cameraRelationShipVector.magnitude is " + cameraRelationShipVector.magnitude +
-            //    //    ", cameraHit.distance is " + cameraHit.distance);
-            //    playerCamera.position = cameraHit.point;
-            //}
-
-            //TODO: Fix camera not "sticking" to walls
-            if (Physics.Raycast(transform.position, playerCamera.transform.position, float.MaxValue, collisionLayer))
+            //DO NO REMOVE THIS CODE
             {
-                //Debug.Log(cameraRelationShipVector + ", " + (transform.position - playerCamera.transform.position));
+                //Physics.SphereCast(transform.position, cameraRadius, playerCamera.position, out RaycastHit cameraHit, (cameraRelationShipVector.magnitude - skinWidth), collisionLayer);
+
+                //if (cameraHit.collider != null && (cameraRelationShipVector.magnitude - cameraHit.distance) > cameraHit.distance)
+                //{
+                //    //Debug.Log("cameraHit.collider is " + cameraHit.collider + ", cameraRelationShipVector.magnitude is " + cameraRelationShipVector.magnitude +
+                //    //    ", cameraHit.distance is " + cameraHit.distance);
+                //    playerCamera.position = cameraHit.point;
+                //}
+
+                //TODO: Fix camera not "sticking" to walls
+                //if (Physics.Raycast(transform.position, playerCamera.transform.position, float.MaxValue, collisionLayer))
+                //{
+                //    //Debug.Log(cameraRelationShipVector + ", " + (transform.position - playerCamera.transform.position));
+                //}
             }
         }
         else
