@@ -334,22 +334,39 @@ public class Controller : MonoBehaviour
 
     void ControlCamera()
     {
-        rotationX += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
-        rotationY += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
-        rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
-
         Quaternion cameraRotation;
+        //TODO: Add rotations for all three axises, fix clamping
+        //if (transform.rotation.z == 90 || transform.rotation.z == 270 || transform.rotation.z == -90 || transform.rotation.z == -270)
+        //if (transform.rotation.z != 0)
+        //{
+        //    Debug.Log("Transform.rotation.z != 0, z-axis movement");
 
-        if (transform.rotation.z != 0)
-        {
-            Debug.Log("Rotation is weird.");
-            cameraRotation = Quaternion.Euler(rotationY, rotationX, 0);
-        }
-        else
-        {
-            Debug.Log("Rotation is NOT weird.");
-            cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
-        }
+        //    rotationX += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
+        //    rotationY += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        //    //rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
+
+        //    cameraRotation = Quaternion.Euler(rotationX, 0, rotationY);
+        //}
+        //else if (transform.rotation.x != 0)
+        //{
+        //    Debug.Log("Transform.rotation.x != 0, x-axis movement.");
+
+        //    rotationX += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        //    rotationY += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
+        //    //rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
+
+        //    cameraRotation = Quaternion.Euler(0, rotationX, rotationY);
+        //}
+        //else
+        //{
+        //Debug.Log("Transform.rotation.y != 0, y-axis movement (normal movement).");
+
+        rotationX -= Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        rotationY += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
+        //rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
+
+        cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
+        //}
 
         //FUNCTIONAL CAMERA ROTATION IN THE X- AND Y-AXISES
         Quaternion localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.y);
