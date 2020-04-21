@@ -395,26 +395,28 @@ public class Controller : MonoBehaviour
 
             //DO NO REMOVE THIS CODE
             {
-                //Physics.SphereCast(transform.position, cameraRadius, playerCamera.position, out RaycastHit cameraHit, (cameraRelationShipVector.magnitude - skinWidth), collisionLayer);
+                Physics.SphereCast(transform.position, cameraRadius, playerCamera.position, out RaycastHit cameraHit, (cameraRelationShipVector.magnitude - skinWidth), collisionLayer);
 
-                //if (cameraHit.collider != null && (cameraRelationShipVector.magnitude - cameraHit.distance) > cameraHit.distance)
-                //{
-                //    //Debug.Log("cameraHit.collider is " + cameraHit.collider + ", cameraRelationShipVector.magnitude is " + cameraRelationShipVector.magnitude +
-                //    //    ", cameraHit.distance is " + cameraHit.distance);
-                //    playerCamera.position = cameraHit.point;
-                //}
+                if (cameraHit.collider != null && (cameraRelationShipVector.magnitude - cameraHit.distance) > cameraHit.distance)
+                {
+                    //Debug.Log("cameraHit.collider is " + cameraHit.collider + ", cameraRelationShipVector.magnitude is " + cameraRelationShipVector.magnitude +
+                    //    ", cameraHit.distance is " + cameraHit.distance);
+                    playerCamera.position = cameraHit.point;
+                }
 
                 //TODO: Fix camera not "sticking" to walls
-                //if (Physics.Raycast(transform.position, playerCamera.transform.position, float.MaxValue, collisionLayer))
-                //{
-                //    //Debug.Log(cameraRelationShipVector + ", " + (transform.position - playerCamera.transform.position));
-                //}
+                if (Physics.Raycast(transform.position, playerCamera.transform.position, float.MaxValue, collisionLayer))
+                {
+                    //Debug.Log(cameraRelationShipVector + ", " + (transform.position - playerCamera.transform.position));
+                }
             }
         }
         else
         {
             playerCamera.position = transform.position;
         }
+
+
     }
 
     void Friction(float normalMagnitude)
