@@ -15,6 +15,7 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
+    private GameController gameController;
     [Header("Speed Settings")]
 
     [SerializeField]
@@ -124,6 +125,7 @@ public class Controller : MonoBehaviour
 
     //This is the layer that the gravity will flip to.
     private LayerMask gravityFlipLayer;
+    public LayerMask moveablePlatforms;
 
     void Awake()
     {
@@ -145,18 +147,38 @@ public class Controller : MonoBehaviour
         gravityFlipLayer = collisionLayer;
     }
 
+    private void Start()
+    {
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        if (gameController.newSceneIsLoaded)
+        {
+            gameController.SetControllerSettingsAtSpawn(this);
+            gameController.SetSpawnTransform(transform);
+            gameController.newSceneIsLoaded = false;
+            //Destroy(gameController.ControllerSettingsAtSpawn.gameObject);
+        }
+        else
+        {
+            Debug.Log("körs denna mer än 1 gång?");
+            transform.SetPositionAndRotation(gameController.getSpawnTransform().position,gameController.getSpawnTransform().rotation);
+            //gravityVector = gameController.getControllerSpawnSettings().gravityVector;
+        }
+    }
+
     void Update()
     {
         MakeSpeed();
 
-        ControlCamera();
+        //ControlCamera();
 
         SetGravity();
+
+        FreezePower();
 
         gravity = gravityVector * gravityModifier * Time.deltaTime;
         velocity += gravity;
 
-        Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, groundCheckDistance + skinWidth, collisionLayer);
+        Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, groundCheckDistance + skinWidth, collisionLayer | moveablePlatforms );
 
         point1 = transform.position + center + (-gravityVector * ((height / 2) - radius));
         point2 = transform.position + center + (gravityVector * ((height / 2) - radius));
@@ -223,19 +245,33 @@ public class Controller : MonoBehaviour
 
         gravityFlipLayer = (gravityFlipLayer == collisionLayer) ? cubeLayer : collisionLayer;
     }
+    private void FreezePower()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            RaycastHit rayHit = rayCastfunction(moveablePlatforms);
+            if(rayHit.collider != null)
+            {
+                rayHit.collider.GetComponent<PlatformMoving>().SetState(new FreezeState(rayHit.collider.GetComponent<PlatformMoving>()));
+            }
 
+        }
+
+    }
     private void SetGravity()
     {
         Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, groundCheckDistance + skinWidth, collisionLayer);
 
         if (groundCheck.collider != null)
-        {
+        { 
             flipTokens = 1;
         }
 
+        //Physics.Raycast(playerCamera.position, playerCamera.transform.forward, out RaycastHit rayHit, 100f, gravityFlipLayer);
+
         if (Input.GetKeyDown(KeyCode.G) && flipTokens != 0)
         {
-            Physics.Raycast(playerCamera.position, playerCamera.transform.forward, out RaycastHit rayHit, 100f, gravityFlipLayer);
+            RaycastHit rayHit = rayCastfunction(gravityFlipLayer);
 
             if (rayHit.collider != null)
             {
@@ -247,7 +283,12 @@ public class Controller : MonoBehaviour
             flipTokens--;
         }
     }
-
+    private RaycastHit rayCastfunction(LayerMask layersToHit)
+    {
+        Physics.Raycast(playerCamera.position, playerCamera.transform.forward, out RaycastHit rayHit, 100f, layersToHit);
+        return rayHit;
+    }
+    //kan behöva brytas ut för att kunnna appliceras på plattformar fiender etc
     private void Collision()
     {
         while (true)
@@ -255,7 +296,7 @@ public class Controller : MonoBehaviour
             //Vector3 point1 = transform.position + center + (-gravityVector * ((height / 2) - radius));
             //Vector3 point2 = transform.position + center + (gravityVector * ((height / 2) - radius));
 
-            Physics.CapsuleCast(point1, point2, radius, velocity.normalized, out RaycastHit hit, float.MaxValue, collisionLayer);
+            Physics.CapsuleCast(point1, point2, radius, velocity.normalized, out RaycastHit hit, float.MaxValue, collisionLayer | moveablePlatforms);
 
             //TITTA
             /*Vector3 interactDirection = new Vector3(playerCamera.forward.y, 0, playerCamera.forward.z);
@@ -332,66 +373,66 @@ public class Controller : MonoBehaviour
         }
     }
 
-    void ControlCamera()
-    {
-        rotationX += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
-        rotationY += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
-        rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
+    //void ControlCamera()
+    //{
+    //    rotationX += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+    //    rotationY += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
+    //    rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
 
-        Quaternion cameraRotation;
+    //    Quaternion cameraRotation;
 
-        if (transform.rotation.z != 0)
-        {
-            Debug.Log("Rotation is weird.");
-            cameraRotation = Quaternion.Euler(rotationY, rotationX, 0);
-        }
-        else
-        {
-            Debug.Log("Rotation is NOT weird.");
-            cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
-        }
+    //    if (transform.rotation.z != 0)
+    //    {
+    //        Debug.Log("Rotation is weird.");
+    //        cameraRotation = Quaternion.Euler(rotationY, rotationX, 0);
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Rotation is NOT weird.");
+    //        cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
+    //    }
 
-        //FUNCTIONAL CAMERA ROTATION IN THE X- AND Y-AXISES
-        Quaternion localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.y);
+    //    //FUNCTIONAL CAMERA ROTATION IN THE X- AND Y-AXISES
+    //    Quaternion localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.y);
 
-        //Quaternion l = Quaternion.Euler(velocity);
+    //    //Quaternion l = Quaternion.Euler(velocity);
 
-        //Debug.Log(localRotation + ", " + l);
+    //    //Debug.Log(localRotation + ", " + l);
 
-        //WEIRD CAMERA IN THE X- AND Y-AXIS
-        //Quaternion localRotation = transform.rotation * xRot * yRot;
+    //    //WEIRD CAMERA IN THE X- AND Y-AXIS
+    //    //Quaternion localRotation = transform.rotation * xRot * yRot;
 
-        //FUNCTIONAL CAMERA ROTATION IN ALL AXISES
-        //Quaternion localRotation = Quaternion.Inverse(transform.rotation) * cameraRotation;
+    //    //FUNCTIONAL CAMERA ROTATION IN ALL AXISES
+    //    //Quaternion localRotation = Quaternion.Inverse(transform.rotation) * cameraRotation;
 
-        if (haveThirdPersonCameraActive)
-        {
-            Vector3 cameraRelationShipVector = cameraRotation * cameraOffset;
+    //    if (haveThirdPersonCameraActive)
+    //    {
+    //        Vector3 cameraRelationShipVector = cameraRotation * cameraOffset;
 
-            playerCamera.position = transform.position + cameraRelationShipVector;
+    //        playerCamera.position = transform.position + cameraRelationShipVector;
 
-            playerCamera.LookAt(transform, -gravityVector);
+    //        playerCamera.LookAt(transform, transform.up);
 
-            Physics.SphereCast(transform.position, cameraRadius, playerCamera.position, out RaycastHit cameraHit, (cameraRelationShipVector.magnitude - skinWidth), collisionLayer);
+    //        Physics.SphereCast(transform.position, cameraRadius, playerCamera.position, out RaycastHit cameraHit, (cameraRelationShipVector.magnitude - skinWidth), collisionLayer);
 
-            //if (cameraHit.collider != null && (cameraRelationShipVector.magnitude - cameraHit.distance) > cameraHit.distance)
-            //{
-            //    //Debug.Log("cameraHit.collider is " + cameraHit.collider + ", cameraRelationShipVector.magnitude is " + cameraRelationShipVector.magnitude +
-            //    //    ", cameraHit.distance is " + cameraHit.distance);
-            //    playerCamera.position = cameraHit.point;
-            //}
+    //        //if (cameraHit.collider != null && (cameraRelationShipVector.magnitude - cameraHit.distance) > cameraHit.distance)
+    //        //{
+    //        //    //Debug.Log("cameraHit.collider is " + cameraHit.collider + ", cameraRelationShipVector.magnitude is " + cameraRelationShipVector.magnitude +
+    //        //    //    ", cameraHit.distance is " + cameraHit.distance);
+    //        //    playerCamera.position = cameraHit.point;
+    //        //}
 
-            //TODO: Fix camera not "sticking" to walls
-            if (Physics.Raycast(transform.position, playerCamera.transform.position, float.MaxValue, collisionLayer))
-            {
-                //Debug.Log(cameraRelationShipVector + ", " + (transform.position - playerCamera.transform.position));
-            }
-        }
-        else
-        {
-            playerCamera.position = transform.position;
-        }
-    }
+    //        //TODO: Fix camera not "sticking" to walls
+    //        if (Physics.Raycast(transform.position, playerCamera.transform.position, float.MaxValue, collisionLayer))
+    //        {
+    //            //Debug.Log(cameraRelationShipVector + ", " + (transform.position - playerCamera.transform.position));
+    //        }
+    //    }
+    //    else
+    //    {
+    //        playerCamera.position = transform.position;
+    //    }
+    //}
 
     void Friction(float normalMagnitude)
     {

@@ -3067,6 +3067,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8e4d6b90f4707d418526694acb9741b, type: 3}
+--- !u!114 &1603320344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896234522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a553765535d4ec42a52535493de88f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookAt: {fileID: 368962992}
+  camTransform: {fileID: 0}
+  distance: 20
+  currentX: 0
+  currentY: 0
+  sensitivityX: 4
+  sensitivityY: 4
+  screenCenter: {x: 0, y: 0}
 --- !u!4 &1669600852 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3260942970331375104, guid: f8e4d6b90f4707d418526694acb9741b,
@@ -3406,14 +3426,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c051f5118aeba4a82fbf5997ac2b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lengthToMove: 15
-  startposition: {x: 0, y: 0, z: 0}
+  startPosition: {x: 0, y: 0, z: 0}
+  endPositioon: {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
   frozen: 0
-  timeTillDefrosted: 0
-  tester: 0
+  timeOfDefreezing: 0
   freezeTestTime: 5
-  Direction: {x: 0, y: 1, z: 0}
   platformSpeed: 5
+  velocity: {x: 0, y: 0, z: 0}
+--- !u!1 &1896234522 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7715817363943197727, guid: 969cc294b090fd34c8bebfc74619ae70,
+    type: 3}
+  m_PrefabInstance: {fileID: 7715817364732129797}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1956236399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3956,6 +3982,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715817364653517315, guid: 969cc294b090fd34c8bebfc74619ae70,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715817364653517315, guid: 969cc294b090fd34c8bebfc74619ae70,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.448
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715817364653517315, guid: 969cc294b090fd34c8bebfc74619ae70,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.667
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 969cc294b090fd34c8bebfc74619ae70, type: 3}
