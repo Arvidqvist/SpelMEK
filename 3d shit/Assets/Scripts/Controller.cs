@@ -161,7 +161,7 @@ public class Controller : MonoBehaviour
         }
         else
         {
-            transform.SetPositionAndRotation(gameController.getSpawnTransform().position,gameController.getSpawnTransform().rotation);
+            transform.SetPositionAndRotation(gameController.getSpawnTransform().position, gameController.getSpawnTransform().rotation);
             transform.SetPositionAndRotation(gameController.getSpawnTransform().position, gameController.getSpawnTransform().rotation);
             //gravityVector = gameController.getControllerSpawnSettings().gravityVector;
         }
@@ -225,7 +225,6 @@ public class Controller : MonoBehaviour
         if (forwardHit.collider != null)
         {
             Interact(forwardHit);
-            Debug.Log("forwardHit.collider is " + forwardHit.collider.name);
         }
 
         Collision();
@@ -285,7 +284,6 @@ public class Controller : MonoBehaviour
                 targetRotationFor180Flips = transform.rotation * Quaternion.AngleAxis(180, Camera.main.GetComponent<CameraController>().fakeForward);
                 Camera.main.GetComponent<CameraController>().thisState.SwitchCameraState();
                 gravityVector = -rayHit.normal;
-                //transform.up = rayHit.normal;
                 flipTokens--;
             }
         }
@@ -407,12 +405,10 @@ public class Controller : MonoBehaviour
 
         if (transform.rotation.z != 0)
         {
-            Debug.Log("Rotation is weird.");
             cameraRotation = Quaternion.Euler(rotationY, rotationX, 0);
         }
         else
         {
-            Debug.Log("Rotation is NOT weird.");
             cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
         }
 
@@ -599,5 +595,16 @@ public class Controller : MonoBehaviour
     public Vector3 GetGravityVector()
     {
         return gravityVector;
+    }
+
+    public void IncreaseFlipTokens()
+    {
+        flipTokens++;
+        Debug.Log("I'VE NOW INCREASED FLIPPIES!");
+    }
+
+    public float GetFlipTokens()
+    {
+        return flipTokens;
     }
 }
