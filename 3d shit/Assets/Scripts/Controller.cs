@@ -600,7 +600,6 @@ public class Controller : MonoBehaviour
     public void IncreaseFlipTokens()
     {
         flipTokens++;
-        Debug.Log("I'VE NOW INCREASED FLIPPIES!");
     }
 
     public float GetFlipTokens()
