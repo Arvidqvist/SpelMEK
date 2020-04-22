@@ -72,18 +72,7 @@ public abstract class BaseCameraState
         thisCameraController.currentYMouseInput -= Input.GetAxis("Mouse Y");
     }
 
-<<<<<<< HEAD
-    public virtual Quaternion CameraRotationUpdate()
-    {
-        Quaternion rotation = Quaternion.Euler(-thisCameraController.currentYMouseInput, thisCameraController.currentXMouseInput, 0f);
-        rotation = thisCameraController.PlayerTransfrom.rotation * rotation;
-        return rotation;
-    }
-
     public virtual void CameraPositionUpdate()
-=======
-    public virtual void CameraPostionUpdate()
->>>>>>> c3566f3ca171f14775a9735b260657152b1a9ffd
     {
         //      Sets the rotation of the camera
         Quaternion rotation = Quaternion.Euler(-thisCameraController.currentYMouseInput, thisCameraController.currentXMouseInput, 0f);
