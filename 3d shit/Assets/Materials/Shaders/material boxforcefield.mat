@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: material boxforcefield
+  m_Shader: {fileID: -6465566751694194690, guid: b5bc7b483701f41459d18e99eb412e4a,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_1C5E1091:
+        m_Texture: {fileID: 2800000, guid: 7a3aed96938eae54b9c2cb0f2050f866, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_1A1B5781: 5
+    - Vector1_9DB352A8: 0.1
+    - Vector1_BD11AB70: 0.1
+    - Vector1_C40FB25F: 0.6
+    m_Colors:
+    - Color_487E2920: {r: 0.382916, g: 1.9766746, b: 0.61059576, a: 0}
