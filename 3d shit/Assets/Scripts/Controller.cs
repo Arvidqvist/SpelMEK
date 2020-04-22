@@ -152,6 +152,7 @@ public class Controller : MonoBehaviour
     private void Start()
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        targetRotationFor180Flips = transform.rotation;
         if (gameController.newSceneIsLoaded)
         {
             gameController.SetControllerSettingsAtSpawn(this);
@@ -281,14 +282,13 @@ public class Controller : MonoBehaviour
             {
                 Camera.main.GetComponent<CameraController>().upVectorBeforeFlip = -gravityVector;
                 Camera.main.GetComponent<CameraController>().upVectorAfterFlip = rayHit.normal;
-                targetRotationFor180Flips = transform.rotation * Quaternion.AngleAxis(180, Camera.main.GetComponent<CameraController>().fakeForward);
                 Camera.main.GetComponent<CameraController>().thisState.SwitchCameraState();
+                Debug.Log("FakeForward --->   " + Camera.main.GetComponent<CameraController>().fakeForward);
+                targetRotationFor180Flips = Quaternion.AngleAxis(180, Camera.main.GetComponent<CameraController>().fakeForward) * transform.rotation;
                 gravityVector = -rayHit.normal;
                 flipTokens--;
             }
         }
-
-
     }
     private void LerpRotation()
     {
@@ -301,8 +301,8 @@ public class Controller : MonoBehaviour
         else
         {
             Debug.Log("im an idiot");
-        Quaternion targetRotation = Quaternion.FromToRotation(transform.up, -gravityVector) * transform.rotation;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 2f);
+            Quaternion targetRotation = Quaternion.FromToRotation(transform.up, -gravityVector) * transform.rotation;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 2f);
         }
     }
     private RaycastHit rayCastfunction(LayerMask layersToHit)
