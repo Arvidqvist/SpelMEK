@@ -48,7 +48,10 @@ namespace EventCallbacks
                 }
             }
 
-            Debug.Log("current is: " + currentGravityRefresher.transform.position);
+            if (currentGravityRefresher != null)
+            {
+                Debug.Log("current is: " + currentGravityRefresher.transform.position);
+            }
 
             if (currentLowestDistance < minDistance && player.GetComponent<Controller>().GetFlipTokens() < 1)
             {
