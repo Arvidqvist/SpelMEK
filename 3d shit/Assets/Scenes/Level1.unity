@@ -565,7 +565,7 @@ GameObject:
   - component: {fileID: 118140749}
   - component: {fileID: 118140748}
   - component: {fileID: 118140747}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MiscWall (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1248,7 +1248,7 @@ GameObject:
   - component: {fileID: 246779957}
   - component: {fileID: 246779956}
   - component: {fileID: 246779955}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MiscWall (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1958,7 +1958,7 @@ GameObject:
   - component: {fileID: 345934429}
   - component: {fileID: 345934428}
   - component: {fileID: 345934427}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MiscWall (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2858,7 +2858,7 @@ GameObject:
   - component: {fileID: 719002578}
   - component: {fileID: 719002577}
   - component: {fileID: 719002576}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MiscWall (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3655,7 +3655,7 @@ GameObject:
   - component: {fileID: 826261205}
   - component: {fileID: 826261204}
   - component: {fileID: 826261203}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MiscWall (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4044,7 +4044,7 @@ GameObject:
   - component: {fileID: 872707384}
   - component: {fileID: 872707383}
   - component: {fileID: 872707382}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MiscWall (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4137,7 +4137,7 @@ GameObject:
   - component: {fileID: 909340798}
   - component: {fileID: 909340797}
   - component: {fileID: 909340796}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MiscWall (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4927,7 +4927,7 @@ GameObject:
   - component: {fileID: 1205597512}
   - component: {fileID: 1205597511}
   - component: {fileID: 1205597510}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MiscWall (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5252,7 +5252,7 @@ GameObject:
   - component: {fileID: 1255943386}
   - component: {fileID: 1255943385}
   - component: {fileID: 1255943384}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MiscWall (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5902,7 +5902,7 @@ GameObject:
   - component: {fileID: 1379940695}
   - component: {fileID: 1379940694}
   - component: {fileID: 1379940693}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MiscWall (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6181,7 +6181,7 @@ GameObject:
   - component: {fileID: 1455548463}
   - component: {fileID: 1455548462}
   - component: {fileID: 1455548461}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MiscWall (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6274,7 +6274,7 @@ GameObject:
   - component: {fileID: 1476094126}
   - component: {fileID: 1476094125}
   - component: {fileID: 1476094124}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MiscWall (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
