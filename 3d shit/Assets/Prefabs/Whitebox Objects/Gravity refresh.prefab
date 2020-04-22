@@ -108,6 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   minDistance: 1
-  deathNoise: {fileID: 0}
-  deathParticles: {fileID: 0}
-  audioSource: {fileID: 0}
+  deathNoise: {fileID: 8300000, guid: 2973f9ee31bdd0141863e57306a74b7c, type: 3}
+  deathParticles: {fileID: 830592999014276308, guid: 3ad48a39b4ffcc7488f2d494071bc0ce,
+    type: 3}
+  audioSource: {fileID: 2045831074675691255, guid: 24f4f46f079072a4981a3efd2824c35d,
+    type: 3}

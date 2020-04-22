@@ -24,7 +24,6 @@ public class CameraController : CameraStateMachince
     // Start is called before the first frame update
     void Start()
     {
-
         upVectorBeforeFlip = PlayerTransfrom.up;
         upVectorAfterFlip = Vector3.zero;
         camTransform = transform;
@@ -46,7 +45,7 @@ public abstract class CameraStateMachince : MonoBehaviour
     }
     private void LateUpdate()
     {
-        thisState.CameraPostionUpdate();
+        thisState.CameraPositionUpdate();
     }
 }
 
@@ -79,7 +78,7 @@ public abstract class BaseCameraState
         return rotation;
     }
 
-    public virtual void CameraPostionUpdate()
+    public virtual void CameraPositionUpdate()
     {
         // måste förmodligen på något sätt få med spelarens rotation i själva flippen så att kameran stannar bakom för fram/bak gravitationsflips
         Quaternion rotation = CameraRotationUpdate();
@@ -104,7 +103,6 @@ public abstract class BaseCameraState
             thisCameraController.SetState(new NormalGravityState(thisCameraController));
             return;
         }
-
     }
 }
 
