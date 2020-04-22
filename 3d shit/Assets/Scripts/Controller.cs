@@ -128,7 +128,7 @@ public class Controller : MonoBehaviour
     public LayerMask moveablePlatforms;
 
     public Vector3 fakeForward = new Vector3();
-
+    public Quaternion targetRotationFor180Flips;
     void Awake()
     {
         playerCamera = Camera.main.transform;
@@ -152,6 +152,7 @@ public class Controller : MonoBehaviour
     private void Start()
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        targetRotationFor180Flips = transform.rotation;
         if (gameController.newSceneIsLoaded)
         {
             gameController.SetControllerSettingsAtSpawn(this);
@@ -279,18 +280,30 @@ public class Controller : MonoBehaviour
 
             if (rayHit.collider != null)
             {
+                Camera.main.GetComponent<CameraController>().upVectorBeforeFlip = -gravityVector;
+                Camera.main.GetComponent<CameraController>().upVectorAfterFlip = rayHit.normal;
                 Camera.main.GetComponent<CameraController>().thisState.SwitchCameraState();
+                Debug.Log("FakeForward --->   " + Camera.main.GetComponent<CameraController>().fakeForward);
+                targetRotationFor180Flips = Quaternion.AngleAxis(180, Camera.main.GetComponent<CameraController>().fakeForward) * transform.rotation;
                 gravityVector = -rayHit.normal;
                 flipTokens--;
             }
         }
-
-
     }
     private void LerpRotation()
     {
-        Quaternion targetRotation = Quaternion.FromToRotation(transform.up, -gravityVector) * transform.rotation;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 2f);
+
+        if (Camera.main.GetComponent<CameraController>().upVectorBeforeFlip == -Camera.main.GetComponent<CameraController>().upVectorAfterFlip)
+        {
+            Debug.Log("hell yeah i worked+ fakeforward --->   " + Camera.main.GetComponent<CameraController>().fakeForward);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotationFor180Flips, 2f);
+        }
+        else
+        {
+            Debug.Log("im an idiot");
+            Quaternion targetRotation = Quaternion.FromToRotation(transform.up, -gravityVector) * transform.rotation;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 2f);
+        }
     }
     private RaycastHit rayCastfunction(LayerMask layersToHit)
     {
