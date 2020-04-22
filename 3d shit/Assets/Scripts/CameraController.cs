@@ -64,11 +64,7 @@ public abstract class BaseCameraState
     {
         thisCameraController.currentXMouseInput += Input.GetAxis("Mouse X");
         thisCameraController.currentYMouseInput -= Input.GetAxis("Mouse Y");
-<<<<<<< HEAD
-        //thisCameraController.currentYMouseInput = Mathf.Clamp(thisCameraController.currentYMouseInput, -89.9f, 89.9f);
-=======
-        //thisCameraController.currentYMouseInput = Mathf.Clamp(thisCameraController.currentYMouseInput, -89, 89);
->>>>>>> 68857b159eecc9ca94126571d59b647fc0363dd8
+
     }
 
     public virtual Quaternion CameraRotationUpdate()
