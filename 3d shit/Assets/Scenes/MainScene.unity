@@ -950,6 +950,7 @@ MonoBehaviour:
   moveablePlatforms:
     serializedVersion: 2
     m_Bits: 0
+  fakeForward: {x: 0, y: 0, z: 0}
 --- !u!1001 &389203819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3775,7 +3776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerTransfrom: {fileID: 368962992}
-  camTransform: {fileID: 0}
+  camTransform: {fileID: 1896234523}
   fakeForward: {x: 0, y: 0, z: 0}
   RotationMultiplierVector: {x: 0, y: 0, z: -10}
   distance: 20
