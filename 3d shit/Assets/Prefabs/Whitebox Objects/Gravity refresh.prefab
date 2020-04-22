@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8449517484538998395}
   m_Layer: 0
   m_Name: Gravity refresh
-  m_TagString: Untagged
+  m_TagString: GravityRefresher
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,3 +108,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   minDistance: 1
+  deathNoise: {fileID: 0}
+  deathParticles: {fileID: 0}
+  audioSource: {fileID: 0}

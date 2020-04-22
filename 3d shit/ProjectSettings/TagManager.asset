@@ -9,6 +9,7 @@ TagManager:
   - Moveable Platform
   - Killzone
   - PlayerReference
+  - GravityRefresher
   layers:
   - Default
   - TransparentFX
