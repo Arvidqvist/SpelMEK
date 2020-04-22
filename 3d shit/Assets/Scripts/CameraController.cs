@@ -29,6 +29,7 @@ public class CameraController : CameraStateMachince
         camTransform = transform;
         fakeForward = PlayerTransfrom.forward;
         currentforwardvector = fakeForward;
+        Debug.Log(fakeForward + "  <--- FF");
         SetState(new NormalGravityState(this));
     }
 }
@@ -71,6 +72,7 @@ public abstract class BaseCameraState
         thisCameraController.currentYMouseInput -= Input.GetAxis("Mouse Y");
     }
 
+<<<<<<< HEAD
     public virtual Quaternion CameraRotationUpdate()
     {
         Quaternion rotation = Quaternion.Euler(-thisCameraController.currentYMouseInput, thisCameraController.currentXMouseInput, 0f);
@@ -79,12 +81,17 @@ public abstract class BaseCameraState
     }
 
     public virtual void CameraPositionUpdate()
+=======
+    public virtual void CameraPostionUpdate()
+>>>>>>> c3566f3ca171f14775a9735b260657152b1a9ffd
     {
-        // måste förmodligen på något sätt få med spelarens rotation i själva flippen så att kameran stannar bakom för fram/bak gravitationsflips
-        Quaternion rotation = CameraRotationUpdate();
-        //thisCameraController.currentforwardvector = Vector3.Lerp(thisCameraController.currentforwardvector, thisCameraController.fakeForward, 0.5f * Time.deltaTime);
-
-        thisCameraController.camTransform.position = thisCameraController.PlayerTransfrom.position + rotation * (thisCameraController.fakeForward * 10f);
+        //      Sets the rotation of the camera
+        Quaternion rotation = Quaternion.Euler(-thisCameraController.currentYMouseInput, thisCameraController.currentXMouseInput, 0f);
+        //      Sets the cameras rotation in relation to the player
+        thisCameraController.transform.rotation = thisCameraController.PlayerTransfrom.rotation * rotation;
+        //      Sets the camera to be a set distance behind the player
+        thisCameraController.camTransform.position = thisCameraController.PlayerTransfrom.position + (thisCameraController.transform.forward * 10f);
+        //      Makes the camera look at the player with the up of the player as the up of the camera
         thisCameraController.camTransform.LookAt(thisCameraController.PlayerTransfrom.position, thisCameraController.PlayerTransfrom.up);
     }
 
@@ -100,7 +107,6 @@ public abstract class BaseCameraState
         else
         {
             thisCameraController.fakeForward = thisCameraController.PlayerTransfrom.up;
-            thisCameraController.SetState(new NormalGravityState(thisCameraController));
             return;
         }
     }
