@@ -161,7 +161,7 @@ public class Controller : MonoBehaviour
         }
         else
         {
-            transform.SetPositionAndRotation(gameController.getSpawnTransform().position,gameController.getSpawnTransform().rotation);
+            transform.SetPositionAndRotation(gameController.getSpawnTransform().position, gameController.getSpawnTransform().rotation);
             transform.SetPositionAndRotation(gameController.getSpawnTransform().position, gameController.getSpawnTransform().rotation);
             //gravityVector = gameController.getControllerSpawnSettings().gravityVector;
         }
