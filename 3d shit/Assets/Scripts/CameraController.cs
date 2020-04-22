@@ -133,64 +133,7 @@ public abstract class BaseCameraState
             thisCameraController.SetState(new NormalGravityState(thisCameraController));
             Debug.Log("Normal GSTATE");
 
-        //}
-        //else if (targetTransform.up == -normalGravity)
-        //{
-        //    Debug.Log("Upside down GSTATE");
-        //    thisCameraController.SetState(new UpsideDownGravityState(thisCameraController));
-        //}
-        //else if (targetTransform.up == Backwardgravity || targetTransform.up == -LeftGravity)
-        //{
-        //    Debug.Log("Right/backward GSTATE");
-        //    thisCameraController.SetState(new Right_BackwardGravityState(thisCameraController));
-        //}
-        //else
-        //{
-        //    Debug.Log("Left/forward GSTATE");
-        //    thisCameraController.SetState(new Left_ForwardGravityState(thisCameraController));
-            
-        //}
-        //if (targetTransform.up == normalGravity)
-        //{
-        //    thisCameraController.SetState(new NormalGravityState(thisCameraController));
-        //    Debug.Log("Normal GSTATE");
-        //    thisCameraController.RotationMultiplierVector = new Vector3(0, 0, -10);
-        //}
-        //else if (targetTransform.up == -normalGravity)
-        //{
-        //    Debug.Log("Upside down GSTATE");
-        //    thisCameraController.SetState(new UpsideDownGravityState(thisCameraController));
-        //    thisCameraController.RotationMultiplierVector = new Vector3(0, 0, -10);
-        //}
-        //else if (targetTransform.up == Backwardgravity || targetTransform.up == -LeftGravity)
-        //{
-        //    Debug.Log("Right/backward GSTATE");
-        //    thisCameraController.SetState(new Right_BackwardGravityState(thisCameraController));
-        //    thisCameraController.RotationMultiplierVector = new Vector3(0, 0, -10);
-        //}
-        //else
-        //{
-        //    Debug.Log("Left/forward GSTATE");
-        //    thisCameraController.RotationMultiplierVector = new Vector3(0, 0, -10);
-        //    thisCameraController.SetState(new Left_ForwardGravityState(thisCameraController));
-
-        //}
-        //else if (targetTransform.up.normalized == forwardsGravity)
-        //{
-        //    thisCameraController.SetState(new ForwardGravityState(thisCameraController));
-        //}
-        //else if (targetTransform.up.normalized == -forwardsGravity)
-        //{
-        //    thisCameraController.SetState(new BackwardGravityState(thisCameraController));
-        //}
-        //else if (targetTransform.up.normalized == sideGravity)
-        //{
-        //    thisCameraController.SetState(new RightGravityState(thisCameraController));
-        //}
-        //else if (targetTransform.up.normalized == -sideGravity)
-        //{
-        //    thisCameraController.SetState(new LeftGravityState(thisCameraController));
-        //}
+        
     }
 }
 
@@ -199,15 +142,7 @@ public class NormalGravityState : BaseCameraState
     public NormalGravityState(CameraController cameraController) : base(cameraController)
     {
     }
-    //public virtual void CameraPositionUpdate()
-    //{
-    //    // måste förmodligen på något sätt få med spelarens rotation i själva flippen så att kameran stannar bakom för fram/bak gravitationsflips
-    //    Vector3 offset = new Vector3(0, 0, -10);
-    //    Quaternion rotation = CameraRotationUpdate();
-    //    Debug.Log("Rotationvectormultiplier " + thisCameraController.RotationMultiplierVector);
-    //    thisCameraController.camTransform.position = thisCameraController.lookAt.position + rotation * thisCameraController.RotationMultiplierVector;
-    //    thisCameraController.camTransform.LookAt(thisCameraController.lookAt.position, thisCameraController.lookAt.up);
-    //}
+
 }
 
 //public class Left_ForwardGravityState : BaseCameraState
