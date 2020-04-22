@@ -30,6 +30,7 @@ public class CameraController : CameraStateMachince
         camTransform = transform;
         fakeForward = PlayerTransfrom.forward;
         currentforwardvector = fakeForward;
+        Debug.Log(fakeForward + "  <--- FF");
         SetState(new NormalGravityState(this));
     }
 }
@@ -72,20 +73,11 @@ public abstract class BaseCameraState
         thisCameraController.currentYMouseInput -= Input.GetAxis("Mouse Y");
     }
 
-    public virtual Quaternion CameraRotationUpdate()
-    {
-        Quaternion rotation = Quaternion.Euler(-thisCameraController.currentYMouseInput, thisCameraController.currentXMouseInput, 0f);
-        rotation = thisCameraController.PlayerTransfrom.rotation * rotation;
-        return rotation;
-    }
-
     public virtual void CameraPostionUpdate()
     {
-        // måste förmodligen på något sätt få med spelarens rotation i själva flippen så att kameran stannar bakom för fram/bak gravitationsflips
-        Quaternion rotation = CameraRotationUpdate();
-        //thisCameraController.currentforwardvector = Vector3.Lerp(thisCameraController.currentforwardvector, thisCameraController.fakeForward, 0.5f * Time.deltaTime);
-
-        thisCameraController.camTransform.position = thisCameraController.PlayerTransfrom.position + rotation * (thisCameraController.fakeForward * 10f);
+        Quaternion rotation = Quaternion.Euler(-thisCameraController.currentYMouseInput, thisCameraController.currentXMouseInput, 0f);
+        thisCameraController.transform.rotation = thisCameraController.PlayerTransfrom.rotation * rotation;
+        thisCameraController.camTransform.position = thisCameraController.PlayerTransfrom.position + (thisCameraController.transform.forward * 10f);
         thisCameraController.camTransform.LookAt(thisCameraController.PlayerTransfrom.position, thisCameraController.PlayerTransfrom.up);
     }
 
