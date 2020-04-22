@@ -18,14 +18,18 @@ public class CameraController : CameraStateMachince
     public float sensitivityY = 4f;
     public Vector2 screenCenter;
     public Vector3 currentforwardvector;
+    public Vector3 upVectorBeforeFlip;
+    public Vector3 upVectorAfterFlip;
 
     // Start is called before the first frame update
     void Start()
     {
+
+        upVectorBeforeFlip = PlayerTransfrom.up;
+        upVectorAfterFlip = Vector3.zero;
         camTransform = transform;
         fakeForward = PlayerTransfrom.forward;
         currentforwardvector = fakeForward;
-        Debug.Log("if im seen more than once its broken");
         SetState(new NormalGravityState(this));
     }
 }
@@ -66,7 +70,7 @@ public abstract class BaseCameraState
     {
         thisCameraController.currentXMouseInput += Input.GetAxis("Mouse X");
         thisCameraController.currentYMouseInput -= Input.GetAxis("Mouse Y");
-        thisCameraController.currentYMouseInput = Mathf.Clamp(thisCameraController.currentYMouseInput, -89, 89);
+        //thisCameraController.currentYMouseInput = Mathf.Clamp(thisCameraController.currentYMouseInput, -89, 89);
     }
 
     public virtual Quaternion CameraRotationUpdate()
@@ -88,8 +92,20 @@ public abstract class BaseCameraState
 
     public void SwitchCameraState()
     {
-        thisCameraController.fakeForward = thisCameraController.PlayerTransfrom.up;
-        thisCameraController.SetState(new NormalGravityState(thisCameraController));
+        Debug.Log(thisCameraController.upVectorAfterFlip + "  <-- UPVAF | UPBF --->" + -thisCameraController.upVectorBeforeFlip);
+        if (thisCameraController.upVectorAfterFlip == -thisCameraController.upVectorBeforeFlip)
+        {
+            Debug.Log("am i even running?");
+            thisCameraController.SetState(new NormalGravityState(thisCameraController));
+            return;
+        }
+        else
+        {
+            thisCameraController.fakeForward = thisCameraController.PlayerTransfrom.up;
+            thisCameraController.SetState(new NormalGravityState(thisCameraController));
+            return;
+        }
+
     }
 }
 
