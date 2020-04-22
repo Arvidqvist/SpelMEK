@@ -86,9 +86,11 @@ public abstract class BaseCameraState
 
     public void CameraMovement()
     {
+
         thisCameraController.currentXMouseInput += Input.GetAxis("Mouse X");
         thisCameraController.currentYMouseInput += Input.GetAxis("Mouse Y");
         //thisCameraController.currentYMouseInput = Mathf.Clamp(thisCameraController.currentYMouseInput, -50, 50);
+
         //SwithCameraState(thisCameraController.lookAt);
     }
 
@@ -193,7 +195,7 @@ public abstract class BaseCameraState
 }
 
 public class NormalGravityState : BaseCameraState
-
+{ 
     public virtual void CameraPositionUpdate()
     {
         // måste förmodligen på något sätt få med spelarens rotation i själva flippen så att kameran stannar bakom för fram/bak gravitationsflips
