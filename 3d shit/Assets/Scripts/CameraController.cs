@@ -10,8 +10,6 @@ public class CameraController : CameraStateMachince
     public Transform camTransform;
     public Vector3 fakeForward;
 
-    private Camera cam;
-
     public Vector3 RotationMultiplierVector = new Vector3(0, 0, -10);
     public float distance = 20f;
     public float currentXMouseInput = 0f;
@@ -21,13 +19,10 @@ public class CameraController : CameraStateMachince
     public Vector2 screenCenter;
     public Vector3 currentforwardvector;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
         camTransform = transform;
-        cam = Camera.main;
         fakeForward = PlayerTransfrom.forward;
         currentforwardvector = fakeForward;
         Debug.Log("if im seen more than once its broken");
@@ -40,7 +35,6 @@ public abstract class CameraStateMachince : MonoBehaviour
     public void SetState(BaseCameraState baseCameraState)
     {
         thisState = baseCameraState;
-        //thisState.Start();
     }
     private void Update()
     {
@@ -50,7 +44,6 @@ public abstract class CameraStateMachince : MonoBehaviour
     {
         thisState.CameraPostionUpdate();
     }
-
 }
 
 public abstract class BaseCameraState
@@ -62,7 +55,6 @@ public abstract class BaseCameraState
     public BaseCameraState(CameraController cameraController)
     {
         thisCameraController = cameraController;
-
     }
 
     public virtual void Start()
@@ -72,9 +64,8 @@ public abstract class BaseCameraState
 
     public void CameraMovement()
     {
-
         thisCameraController.currentXMouseInput += Input.GetAxis("Mouse X");
-        thisCameraController.currentYMouseInput += Input.GetAxis("Mouse Y");
+        thisCameraController.currentYMouseInput -= Input.GetAxis("Mouse Y");
     }
 
     public virtual Quaternion CameraRotationUpdate()
@@ -87,20 +78,16 @@ public abstract class BaseCameraState
     public virtual void CameraPostionUpdate()
     {
         // måste förmodligen på något sätt få med spelarens rotation i själva flippen så att kameran stannar bakom för fram/bak gravitationsflips
-        Vector3 offset = new Vector3(0, 0, -10);
         Quaternion rotation = CameraRotationUpdate();
-        Debug.Log("Rotationvectormultiplier " + thisCameraController.RotationMultiplierVector);
         thisCameraController.currentforwardvector = Vector3.Lerp(thisCameraController.currentforwardvector, thisCameraController.fakeForward, 0.5f * Time.deltaTime);
-        Debug.Log(thisCameraController.currentforwardvector + "  <--- CFW");
+
         thisCameraController.camTransform.position = thisCameraController.PlayerTransfrom.position + rotation * (thisCameraController.currentforwardvector * 10f);
         thisCameraController.camTransform.LookAt(thisCameraController.PlayerTransfrom.position, thisCameraController.PlayerTransfrom.up);
     }
 
-    public void SwithCameraState()
+    public void SwitchCameraState()
     {
-        Debug.Log("FF before  " + thisCameraController.fakeForward);
         thisCameraController.fakeForward = thisCameraController.PlayerTransfrom.up;
-        Debug.Log("FF after  " + thisCameraController.fakeForward);
         thisCameraController.SetState(new NormalGravityState(thisCameraController));
     }
 }
@@ -110,5 +97,4 @@ public class NormalGravityState : BaseCameraState
     public NormalGravityState(CameraController cameraController) : base(cameraController)
     {
     }
-
 }

@@ -280,7 +280,7 @@ public class Controller : MonoBehaviour
 
             if (rayHit.collider != null)
             {
-                Camera.main.GetComponent<CameraController>().thisState.SwithCameraState();
+                Camera.main.GetComponent<CameraController>().thisState.SwitchCameraState();
                 gravityVector = -rayHit.normal;
                 //transform.up = rayHit.normal;
                 Debug.Log("rayHit.collider = " + rayHit.collider);
