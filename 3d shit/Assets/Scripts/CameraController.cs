@@ -66,6 +66,7 @@ public abstract class BaseCameraState
     {
         thisCameraController.currentXMouseInput += Input.GetAxis("Mouse X");
         thisCameraController.currentYMouseInput -= Input.GetAxis("Mouse Y");
+        //thisCameraController.currentYMouseInput = Mathf.Clamp(thisCameraController.currentYMouseInput, -89, 89);
     }
 
     public virtual Quaternion CameraRotationUpdate()
@@ -79,9 +80,9 @@ public abstract class BaseCameraState
     {
         // måste förmodligen på något sätt få med spelarens rotation i själva flippen så att kameran stannar bakom för fram/bak gravitationsflips
         Quaternion rotation = CameraRotationUpdate();
-        thisCameraController.currentforwardvector = Vector3.Lerp(thisCameraController.currentforwardvector, thisCameraController.fakeForward, 0.5f * Time.deltaTime);
+        //thisCameraController.currentforwardvector = Vector3.Lerp(thisCameraController.currentforwardvector, thisCameraController.fakeForward, 0.5f * Time.deltaTime);
 
-        thisCameraController.camTransform.position = thisCameraController.PlayerTransfrom.position + rotation * (thisCameraController.currentforwardvector * 10f);
+        thisCameraController.camTransform.position = thisCameraController.PlayerTransfrom.position + rotation * (thisCameraController.fakeForward * 10f);
         thisCameraController.camTransform.LookAt(thisCameraController.PlayerTransfrom.position, thisCameraController.PlayerTransfrom.up);
     }
 
