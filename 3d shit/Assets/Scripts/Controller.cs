@@ -127,6 +127,8 @@ public class Controller : MonoBehaviour
     private LayerMask gravityFlipLayer;
     public LayerMask moveablePlatforms;
 
+    public Vector3 fakeForward = new Vector3();
+
     void Awake()
     {
         playerCamera = Camera.main.transform;
@@ -160,6 +162,7 @@ public class Controller : MonoBehaviour
         else
         {
             transform.SetPositionAndRotation(gameController.getSpawnTransform().position,gameController.getSpawnTransform().rotation);
+            transform.SetPositionAndRotation(gameController.getSpawnTransform().position, gameController.getSpawnTransform().rotation);
             //gravityVector = gameController.getControllerSpawnSettings().gravityVector;
         }
     }
@@ -181,7 +184,7 @@ public class Controller : MonoBehaviour
         gravity = gravityVector * gravityModifier * Time.deltaTime;
         velocity += gravity;
 
-        Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, groundCheckDistance + skinWidth, collisionLayer | moveablePlatforms );
+        Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, groundCheckDistance + skinWidth, collisionLayer | moveablePlatforms);
 
         point1 = transform.position + center + (-gravityVector * ((height / 2) - radius));
         point2 = transform.position + center + (gravityVector * ((height / 2) - radius));
@@ -253,7 +256,7 @@ public class Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             RaycastHit rayHit = rayCastfunction(moveablePlatforms);
-            if(rayHit.collider != null)
+            if (rayHit.collider != null)
             {
                 rayHit.collider.GetComponent<PlatformMoving>().SetState(new FreezeState(rayHit.collider.GetComponent<PlatformMoving>()));
             }
@@ -266,7 +269,7 @@ public class Controller : MonoBehaviour
         Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, groundCheckDistance + skinWidth, collisionLayer);
 
         if (groundCheck.collider != null)
-        { 
+        {
             flipTokens = 1;
         }
 
@@ -281,10 +284,8 @@ public class Controller : MonoBehaviour
                 gravityVector = -rayHit.normal;
                 //transform.up = rayHit.normal;
                 Debug.Log("rayHit.collider = " + rayHit.collider);
-
+                flipTokens--;
             }
-
-            flipTokens--;
         }
 
 
@@ -384,66 +385,66 @@ public class Controller : MonoBehaviour
         }
     }
 
-    //void ControlCamera()
-    //{
-    //    rotationX += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
-    //    rotationY += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
-    //    rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
+    void ControlCamera()
+    {
+        rotationX += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        rotationY += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
+        rotationX = Mathf.Clamp(rotationX, minimumCameraAngle, maximumCameraAngle);
 
-    //    Quaternion cameraRotation;
+        Quaternion cameraRotation;
 
-    //    if (transform.rotation.z != 0)
-    //    {
-    //        Debug.Log("Rotation is weird.");
-    //        cameraRotation = Quaternion.Euler(rotationY, rotationX, 0);
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("Rotation is NOT weird.");
-    //        cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
-    //    }
+        if (transform.rotation.z != 0)
+        {
+            Debug.Log("Rotation is weird.");
+            cameraRotation = Quaternion.Euler(rotationY, rotationX, 0);
+        }
+        else
+        {
+            Debug.Log("Rotation is NOT weird.");
+            cameraRotation = Quaternion.Euler(rotationX, rotationY, 0);
+        }
 
-    //    //FUNCTIONAL CAMERA ROTATION IN THE X- AND Y-AXISES
-    //    Quaternion localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.y);
+        //FUNCTIONAL CAMERA ROTATION IN THE X- AND Y-AXISES
+        Quaternion localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.y);
 
-    //    //Quaternion l = Quaternion.Euler(velocity);
+        //Quaternion l = Quaternion.Euler(velocity);
 
-    //    //Debug.Log(localRotation + ", " + l);
+        //Debug.Log(localRotation + ", " + l);
 
-    //    //WEIRD CAMERA IN THE X- AND Y-AXIS
-    //    //Quaternion localRotation = transform.rotation * xRot * yRot;
+        //WEIRD CAMERA IN THE X- AND Y-AXIS
+        //Quaternion localRotation = transform.rotation * xRot * yRot;
 
-    //    //FUNCTIONAL CAMERA ROTATION IN ALL AXISES
-    //    //Quaternion localRotation = Quaternion.Inverse(transform.rotation) * cameraRotation;
+        //FUNCTIONAL CAMERA ROTATION IN ALL AXISES
+        //Quaternion localRotation = Quaternion.Inverse(transform.rotation) * cameraRotation;
 
-    //    if (haveThirdPersonCameraActive)
-    //    {
-    //        Vector3 cameraRelationShipVector = cameraRotation * cameraOffset;
+        if (haveThirdPersonCameraActive)
+        {
+            Vector3 cameraRelationShipVector = cameraRotation * cameraOffset;
 
-    //        playerCamera.position = transform.position + cameraRelationShipVector;
+            playerCamera.position = transform.position + cameraRelationShipVector;
 
-    //        playerCamera.LookAt(transform, transform.up);
+            playerCamera.LookAt(transform, transform.up);
 
-    //        Physics.SphereCast(transform.position, cameraRadius, playerCamera.position, out RaycastHit cameraHit, (cameraRelationShipVector.magnitude - skinWidth), collisionLayer);
+            Physics.SphereCast(transform.position, cameraRadius, playerCamera.position, out RaycastHit cameraHit, (cameraRelationShipVector.magnitude - skinWidth), collisionLayer);
 
-    //        //if (cameraHit.collider != null && (cameraRelationShipVector.magnitude - cameraHit.distance) > cameraHit.distance)
-    //        //{
-    //        //    //Debug.Log("cameraHit.collider is " + cameraHit.collider + ", cameraRelationShipVector.magnitude is " + cameraRelationShipVector.magnitude +
-    //        //    //    ", cameraHit.distance is " + cameraHit.distance);
-    //        //    playerCamera.position = cameraHit.point;
-    //        //}
+            //if (cameraHit.collider != null && (cameraRelationShipVector.magnitude - cameraHit.distance) > cameraHit.distance)
+            //{
+            //    //Debug.Log("cameraHit.collider is " + cameraHit.collider + ", cameraRelationShipVector.magnitude is " + cameraRelationShipVector.magnitude +
+            //    //    ", cameraHit.distance is " + cameraHit.distance);
+            //    playerCamera.position = cameraHit.point;
+            //}
 
-    //        //TODO: Fix camera not "sticking" to walls
-    //        if (Physics.Raycast(transform.position, playerCamera.transform.position, float.MaxValue, collisionLayer))
-    //        {
-    //            //Debug.Log(cameraRelationShipVector + ", " + (transform.position - playerCamera.transform.position));
-    //        }
-    //    }
-    //    else
-    //    {
-    //        playerCamera.position = transform.position;
-    //    }
-    //}
+            //TODO: Fix camera not "sticking" to walls
+            if (Physics.Raycast(transform.position, playerCamera.transform.position, float.MaxValue, collisionLayer))
+            {
+                //Debug.Log(cameraRelationShipVector + ", " + (transform.position - playerCamera.transform.position));
+            }
+        }
+        else
+        {
+            playerCamera.position = transform.position;
+        }
+    }
 
     void Friction(float normalMagnitude)
     {
