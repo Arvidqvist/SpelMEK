@@ -75,9 +75,13 @@ public abstract class BaseCameraState
 
     public virtual void CameraPostionUpdate()
     {
+        //      Sets the rotation of the camera
         Quaternion rotation = Quaternion.Euler(-thisCameraController.currentYMouseInput, thisCameraController.currentXMouseInput, 0f);
+        //      Sets the cameras rotation in relation to the player
         thisCameraController.transform.rotation = thisCameraController.PlayerTransfrom.rotation * rotation;
+        //      Sets the camera to be a set distance behind the player
         thisCameraController.camTransform.position = thisCameraController.PlayerTransfrom.position + (thisCameraController.transform.forward * 10f);
+        //      Makes the camera look at the player with the up of the player as the up of the camera
         thisCameraController.camTransform.LookAt(thisCameraController.PlayerTransfrom.position, thisCameraController.PlayerTransfrom.up);
     }
 
@@ -93,10 +97,8 @@ public abstract class BaseCameraState
         else
         {
             thisCameraController.fakeForward = thisCameraController.PlayerTransfrom.up;
-            thisCameraController.SetState(new NormalGravityState(thisCameraController));
             return;
         }
-
     }
 }
 
