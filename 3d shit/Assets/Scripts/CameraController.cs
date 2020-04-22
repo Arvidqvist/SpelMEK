@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class CameraController : CameraStateMachince
 {
@@ -40,7 +42,7 @@ public abstract class CameraStateMachince : MonoBehaviour
     }
     private void LateUpdate()
     {
-        thisState.CameraPositionUpdate();
+        thisState.CameraPostionUpdate();
     }
 }
 
@@ -64,16 +66,16 @@ public abstract class BaseCameraState
     {
         thisCameraController.currentXMouseInput += Input.GetAxis("Mouse X");
         thisCameraController.currentYMouseInput -= Input.GetAxis("Mouse Y");
-
     }
 
     public virtual Quaternion CameraRotationUpdate()
     {
-        return thisCameraController.PlayerTransfrom.rotation *
-               Quaternion.Euler(-thisCameraController.currentYMouseInput, thisCameraController.currentXMouseInput, 0f);
+        Quaternion rotation = Quaternion.Euler(-thisCameraController.currentYMouseInput, thisCameraController.currentXMouseInput, 0f);
+        rotation = thisCameraController.PlayerTransfrom.rotation * rotation;
+        return rotation;
     }
 
-    public virtual void CameraPositionUpdate()
+    public virtual void CameraPostionUpdate()
     {
         // måste förmodligen på något sätt få med spelarens rotation i själva flippen så att kameran stannar bakom för fram/bak gravitationsflips
         Quaternion rotation = CameraRotationUpdate();
