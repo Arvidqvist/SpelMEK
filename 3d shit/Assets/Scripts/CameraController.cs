@@ -11,7 +11,7 @@ public class CameraController : CameraStateMachince
     public Vector3 fakeForward;
 
     private Camera cam;
-    public Vector3 RotationMultiplierVector = new Vector3(0,0,-10);
+    public Vector3 RotationMultiplierVector = new Vector3(0, 0, -10);
     public float distance = 20f;
     public float currentXMouseInput = 0f;
     public float currentYMouseInput = 0f;
@@ -64,7 +64,6 @@ public abstract class CameraStateMachince : MonoBehaviour
     {
         thisState.CameraPositionUpdate();
     }
-
 }
 
 public abstract class BaseCameraState
@@ -119,7 +118,7 @@ public abstract class BaseCameraState
         thisCameraController.currentforwardvector = Vector3.Lerp(thisCameraController.currentforwardvector, thisCameraController.fakeForward, 0.5f * Time.deltaTime);
         Debug.Log(thisCameraController.currentforwardvector + "  <--- CFW");
         //thisCameraController.camTransform.position = thisCameraController.PlayerTransfrom.position + rotation * thisCameraController.RotationMultiplierVector;
-        thisCameraController.camTransform.position = thisCameraController.PlayerTransfrom.position + rotation*(thisCameraController.currentforwardvector * 10f);
+        thisCameraController.camTransform.position = thisCameraController.PlayerTransfrom.position + rotation * (thisCameraController.currentforwardvector * 10f);
         thisCameraController.camTransform.LookAt(thisCameraController.PlayerTransfrom.position, thisCameraController.PlayerTransfrom.up);
     }
 
@@ -127,29 +126,12 @@ public abstract class BaseCameraState
     {
         Debug.Log("FF before  " + thisCameraController.fakeForward);
         thisCameraController.fakeForward = thisCameraController.PlayerTransfrom.up;
-        Debug.Log("FF after  "+thisCameraController.fakeForward);
+        Debug.Log("FF after  " + thisCameraController.fakeForward);
         //if (targetTransform.up == normalGravity)
         //{
-            thisCameraController.SetState(new NormalGravityState(thisCameraController));
-            Debug.Log("Normal GSTATE");
+        thisCameraController.SetState(new NormalGravityState(thisCameraController));
+        Debug.Log("Normal GSTATE");
 
-        //}
-        //else if (targetTransform.up == -normalGravity)
-        //{
-        //    Debug.Log("Upside down GSTATE");
-        //    thisCameraController.SetState(new UpsideDownGravityState(thisCameraController));
-        //}
-        //else if (targetTransform.up == Backwardgravity || targetTransform.up == -LeftGravity)
-        //{
-        //    Debug.Log("Right/backward GSTATE");
-        //    thisCameraController.SetState(new Right_BackwardGravityState(thisCameraController));
-        //}
-        //else
-        //{
-        //    Debug.Log("Left/forward GSTATE");
-        //    thisCameraController.SetState(new Left_ForwardGravityState(thisCameraController));
-            
-        //}
         if (targetTransform.up == normalGravity)
         {
             thisCameraController.SetState(new NormalGravityState(thisCameraController));
@@ -175,27 +157,11 @@ public abstract class BaseCameraState
             thisCameraController.SetState(new Left_ForwardGravityState(thisCameraController));
 
         }
-        //else if (targetTransform.up.normalized == forwardsGravity)
-        //{
-        //    thisCameraController.SetState(new ForwardGravityState(thisCameraController));
-        //}
-        //else if (targetTransform.up.normalized == -forwardsGravity)
-        //{
-        //    thisCameraController.SetState(new BackwardGravityState(thisCameraController));
-        //}
-        //else if (targetTransform.up.normalized == sideGravity)
-        //{
-        //    thisCameraController.SetState(new RightGravityState(thisCameraController));
-        //}
-        //else if (targetTransform.up.normalized == -sideGravity)
-        //{
-        //    thisCameraController.SetState(new LeftGravityState(thisCameraController));
-        //}
     }
 }
 
 public class NormalGravityState : BaseCameraState
-{ 
+{
     public virtual void CameraPositionUpdate()
     {
         // måste förmodligen på något sätt få med spelarens rotation i själva flippen så att kameran stannar bakom för fram/bak gravitationsflips
@@ -212,12 +178,12 @@ public class Left_ForwardGravityState : BaseCameraState
     public Left_ForwardGravityState(CameraController cameraController) : base(cameraController)
     {
     }
-        public NormalGravityState(CameraController cameraController) : base(cameraController)
-        {
-        }
+    public NormalGravityState(CameraController cameraController) : base(cameraController)
+    {
+    }
     public override void Start()
     {
-        
+
     }
     //public override Quaternion CameraRotationUpdate()
     //    {
@@ -256,19 +222,6 @@ public class Right_BackwardGravityState : BaseCameraState
     }
 }
 
-//public class Left_ForwardGravityState : BaseCameraState
-//{
-//    public Left_ForwardGravityState(CameraController cameraController) : base(cameraController)
-//    {
-//    }
-//    public override Quaternion CameraRotationUpdate()
-//    {
-//        Vector3 FW = new Vector3(0, 1, 0);
-//        Quaternion rotation = Quaternion.AngleAxis(thisCameraController.currentYMouseInput, thisCameraController.fakeForward);
-//        rotation = Quaternion.AngleAxis(thisCameraController.currentXMouseInput, thisCameraController.PlayerTransfrom.up) * rotation;
-//        return rotation;
-//    }
-
 public class NormalGravityState : BaseCameraState
 {
     public NormalGravityState(CameraController cameraController) : base(cameraController)
@@ -280,101 +233,3 @@ public class NormalGravityState : BaseCameraState
         return rotation;
     }
 }
-
-//public class Right_BackwardGravityState : BaseCameraState
-//{
-//        public Right_BackwardGravityState(CameraController cameraController) : base(cameraController)
-//        {
-//        }
-//        public override Quaternion CameraRotationUpdate()
-//        {
-//            Vector3 FW = new Vector3(0, -1, 0);
-//            Quaternion rotation = Quaternion.AngleAxis(thisCameraController.currentYMouseInput, FW);
-//            rotation = Quaternion.AngleAxis(thisCameraController.currentXMouseInput, thisCameraController.PlayerTransfrom.up) * rotation;
-//            return rotation;
-//        }
-
-//}
-//public class UpsideDownGravityState : BaseCameraState
-//    {
-//        public UpsideDownGravityState(CameraController cameraController) : base(cameraController)
-//        {
-//        }
-//        public override Quaternion CameraRotationUpdate()
-//        {
-//            Debug.Log("UDGS");
-//            Quaternion rotation = Quaternion.Euler(thisCameraController.currentYMouseInput, -thisCameraController.currentXMouseInput, 0f);
-//            return rotation;
-//        }
-
-//    }
-
-
-//public class BackwardGravityState : BaseCameraState
-//{
-//    public BackwardGravityState(CameraController cameraController) : base(cameraController)
-//    {
-
-//    }
-//    public override Quaternion CameraRotationUpdate()
-//    {   
-//        //Quaternion rotation = Quaternion.LookRotation(thisCameraController.lookAt.position - thisCameraController.transform.position, thisCameraController.lookAt.up);
-//        //Quaternion rotation = Quaternion.Euler(thisCameraController.currentY, 0f, -thisCameraController.currentX);
-
-//        Quaternion rotation = Quaternion.AngleAxis(thisCameraController.currentY, thisCameraController.lookAt.forward);
-//        rotation = Quaternion.AngleAxis(thisCameraController.currentX, thisCameraController.lookAt.up)*rotation;
-
-//        Debug.Log("BWGS");
-//        return rotation;
-//    }
-
-//}
-//public class ForwardGravityState : BaseCameraState
-//{
-//    public ForwardGravityState(CameraController cameraController) : base(cameraController)
-//    {
-//    }
-
-//    public override Quaternion CameraRotationUpdate()
-//    {
-//        Debug.Log("FWGS");
-//        //Quaternion rotation = Quaternion.Euler(-thisCameraController.currentY, 0f, thisCameraController.currentX);
-
-//        Quaternion rotation = Quaternion.AngleAxis(thisCameraController.currentY, thisCameraController.lookAt.forward);
-//        rotation = Quaternion.AngleAxis(thisCameraController.currentX, thisCameraController.lookAt.up) * rotation;
-//        return rotation;
-//    }
-
-//}
-//public class RightGravityState : BaseCameraState
-//{
-//    public RightGravityState(CameraController cameraController) : base(cameraController)
-//    {
-//    }
-//    public override Quaternion CameraRotationUpdate()
-//    {
-//        Debug.Log("RGS");
-//        //Quaternion rotation = Quaternion.Euler(thisCameraController.currentX, thisCameraController.currentY, 0f);
-//        Vector3 FW = new Vector3(0, 1, 0);
-//        Quaternion rotation = Quaternion.AngleAxis(thisCameraController.currentY, FW);
-//        rotation = Quaternion.AngleAxis(thisCameraController.currentX, thisCameraController.lookAt.up)* rotation;
-//        return rotation;
-//    }
-
-//}
-//public class LeftGravityState : BaseCameraState
-//{
-//    public LeftGravityState(CameraController cameraController) : base(cameraController)
-//    {
-//    }
-//    public override Quaternion CameraRotationUpdate()
-//    {
-//        Debug.Log("LGS");
-//        //Quaternion rotation = Quaternion.Euler(-thisCameraController.currentX, -thisCameraController.currentY, 0);
-//        Vector3 FW = new Vector3(0, 1, 0);
-//        Quaternion rotation = Quaternion.AngleAxis(thisCameraController.currentY, FW);
-//        rotation = Quaternion.AngleAxis(thisCameraController.currentX, thisCameraController.lookAt.up) * rotation;
-//        return rotation;
-//    }
-
-//}
