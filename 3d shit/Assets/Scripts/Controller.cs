@@ -159,7 +159,6 @@ public class Controller : MonoBehaviour
         }
         else
         {
-            Debug.Log("körs denna mer än 1 gång?");
             transform.SetPositionAndRotation(gameController.getSpawnTransform().position,gameController.getSpawnTransform().rotation);
             //gravityVector = gameController.getControllerSpawnSettings().gravityVector;
         }
@@ -172,6 +171,10 @@ public class Controller : MonoBehaviour
         //ControlCamera();
 
         SetGravity();
+        if (transform.up != -gravityVector)
+        {
+            LerpRotation();
+        }
 
         FreezePower();
 
@@ -268,20 +271,28 @@ public class Controller : MonoBehaviour
         }
 
         //Physics.Raycast(playerCamera.position, playerCamera.transform.forward, out RaycastHit rayHit, 100f, gravityFlipLayer);
-
         if (Input.GetKeyDown(KeyCode.G) && flipTokens != 0)
         {
             RaycastHit rayHit = rayCastfunction(gravityFlipLayer);
 
             if (rayHit.collider != null)
             {
+                Camera.main.GetComponent<CameraController>().thisState.SwithCameraState();
                 gravityVector = -rayHit.normal;
-                transform.up = rayHit.normal;
+                //transform.up = rayHit.normal;
                 Debug.Log("rayHit.collider = " + rayHit.collider);
+
             }
 
             flipTokens--;
         }
+
+
+    }
+    private void LerpRotation()
+    {
+        Quaternion targetRotation = Quaternion.FromToRotation(transform.up, -gravityVector) * transform.rotation;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 2f);
     }
     private RaycastHit rayCastfunction(LayerMask layersToHit)
     {

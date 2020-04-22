@@ -30,7 +30,6 @@ public class DoorSwitch : MonoBehaviour
         }
         else
         {
-            Debug.Log("hej");
             this.gameObject.GetComponent<MeshRenderer>().material = deActivatedMaterial;
         }
 

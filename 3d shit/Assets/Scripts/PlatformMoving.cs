@@ -52,7 +52,6 @@ public abstract class MovingPlatformStateMachine : MonoBehaviour
     protected BasePlatformState thisState;
     public void SetState(BasePlatformState state)
     {
-        Debug.Log("tog mig in i statemachinen");
         thisState = state;
         thisState.Start();
     }
@@ -71,7 +70,6 @@ public class MovingState : BasePlatformState
     {
         if (PlatformMoving.startPosition.magnitude == 0)
         {
-            Debug.Log("tog mig in i Start i movementState Ska bara hända en gång");
             PlatformMoving.startPosition = PlatformMoving.transform.position;
             PlatformMoving.targetPosition = PlatformMoving.endPositioon;
         }
@@ -80,7 +78,6 @@ public class MovingState : BasePlatformState
     public override void Movement()
     {
         PlatformMoving.velocity = (PlatformMoving.targetPosition - PlatformMoving.transform.position).normalized *PlatformMoving.platformSpeed *Time.deltaTime;
-        Debug.Log("Tog mig in i movementState Movement");
         PlatformMoving.transform.position = Vector3.MoveTowards(PlatformMoving.transform.position, PlatformMoving.targetPosition, PlatformMoving.platformSpeed * Time.deltaTime);
 
         if ((PlatformMoving.transform.position - PlatformMoving.targetPosition).magnitude == 0)
@@ -109,7 +106,6 @@ public class FreezeState : BasePlatformState
     }
     public override void Start()
     {
-        Debug.Log("tog mig in i Freeze state");
         PlatformMoving.timeOfDefreezing = Time.time + PlatformMoving.freezeTestTime;
     }
     public override void Movement()
