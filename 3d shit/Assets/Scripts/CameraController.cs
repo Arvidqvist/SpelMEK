@@ -80,7 +80,7 @@ public abstract class BaseCameraState
     {
         thisCameraController.currentX += Input.GetAxis("Mouse X");
         thisCameraController.currentY += Input.GetAxis("Mouse Y");
-        thisCameraController.currentY = Mathf.Clamp(thisCameraController.currentY, -50, 50);
+        thisCameraController.currentY = Mathf.Clamp(thisCameraController.currentY, -90, 90);
         //SwithCameraState(thisCameraController.lookAt);
     }
     public virtual Quaternion CameraRotationUpdate()
