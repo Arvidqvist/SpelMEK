@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 410468720819693655}
   - component: {fileID: 410468720819693648}
+  - component: {fileID: 2871612647137063505}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -43,7 +44,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ca2fa7e98159a478db21d8bba8fba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ControllerSettingsAtSpawn: {fileID: 0}
+  testreload: 0
+  newSceneIsLoaded: 0
   switchActivatedMaterial: {fileID: 2100000, guid: b63df9eece8b060409ff3a1fc7278c00,
     type: 2}
   switchDeactivatedMaterial: {fileID: 2100000, guid: 88dac35362f69ff45905da15eceab4c2,
     type: 2}
+--- !u!114 &2871612647137063505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410468720819693654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8f1eda4451122e48a25a653e7a33753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
