@@ -21,14 +21,12 @@ namespace EventCallbacks
 
     public class SoundEvent : Event
     {
-        //public Transform gameObjectTransform;
         public AudioClip sound;
         public AudioSource audioSource;
     }
 
     public class ParticleEvent : Event
     {
-        //public Transform gameObjectTransform;
         public ParticleSystem particles;
     }
 }
