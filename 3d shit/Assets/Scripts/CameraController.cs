@@ -96,7 +96,7 @@ public class CameraController : MonoBehaviour
     {
         if (upVectorAfterFlip != -upVectorBeforeFlip)
         {
-            fakeForward = playerTransform.up;
+            fakeForward = transform.forward;
         }
     }
 }

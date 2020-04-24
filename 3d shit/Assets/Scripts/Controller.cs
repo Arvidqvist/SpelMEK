@@ -101,7 +101,8 @@ public class Controller : MonoBehaviour
     [Tooltip("Where the player should respawn in case of death")]
     private Transform respawnPoint;
 
-    private Vector3 direction;
+    public Vector3 direction;
+    public Vector3 the180FlipVector;
     private float pushForce = 10;
 
     private float height;
@@ -303,7 +304,7 @@ public class Controller : MonoBehaviour
                 Camera.main.GetComponent<CameraController>().upVectorAfterFlip = rayHit.normal;
                 Camera.main.GetComponent<CameraController>().SwitchForwardCameraVector();
                 Debug.Log("FakeForward --->   " + Camera.main.GetComponent<CameraController>().fakeForward);
-                targetRotationFor180Flips = Quaternion.AngleAxis(180, Camera.main.GetComponent<CameraController>().fakeForward) * transform.rotation;
+                targetRotationFor180Flips = Quaternion.AngleAxis(180, the180FlipVector) * transform.rotation;
                 gravityVector = -rayHit.normal;
                 flipTokens--;
             }
@@ -538,15 +539,25 @@ public class Controller : MonoBehaviour
         direction = playerCamera.transform.rotation * direction;
 
         //Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, groundCheckDistance + skinWidth, collisionLayer);
-        Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, float.MaxValue, collisionLayer);
+        //Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, float.MaxValue, collisionLayer);
 
         if (!haveThirdPersonCameraActive)
         {
             playerCamera.position -= new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         }
 
-        direction = Vector3.ProjectOnPlane(direction, groundCheck.normal).normalized;
-
+        direction = Vector3.ProjectOnPlane(direction, transform.up).normalized;
+        if (direction.magnitude > 0)
+        {
+            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.z))
+            {
+                the180FlipVector = new Vector3(1f, 0, 0);
+            }
+            else
+            {
+                the180FlipVector = new Vector3(0, 0, 1f);
+            }
+        }
         if (direction.magnitude < 0.1)
         {
             Decelerate(direction);
