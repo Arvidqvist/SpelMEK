@@ -17,6 +17,9 @@ public class CameraController : MonoBehaviour
     public Vector3 upVectorBeforeFlip;
     public Vector3 upVectorAfterFlip;
 
+    public LayerMask cameraCollisionLayer = new LayerMask();
+    public float cameraRadius = 0;
+
     private void Awake()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -27,6 +30,8 @@ public class CameraController : MonoBehaviour
         upVectorBeforeFlip = playerTransform.up;
         upVectorAfterFlip = Vector3.zero;
         fakeForward = playerTransform.forward;
+
+        cameraRadius = this.GetComponent<SphereCollider>().radius;
     }
 
     private void Update()
@@ -53,6 +58,30 @@ public class CameraController : MonoBehaviour
         transform.position = playerTransform.position + (transform.forward * settings.cameraSettings.cameraDistance);
         //      Makes the camera look at the player with the up of the player as the up of the camera
         transform.LookAt(playerTransform.position, playerTransform.up);
+
+
+        Physics.SphereCast(transform.position,
+                           cameraRadius,
+                           playerTransform.position,
+                           out RaycastHit cameraHit,
+                           (playerTransform.position - this.transform.position).magnitude,
+                           cameraCollisionLayer);
+
+        if (cameraHit.collider != null)
+        {
+            Debug.Log("cameraHit.collider != null");
+        }
+
+        if ((playerTransform.position - this.transform.position).magnitude > cameraHit.distance)
+        {
+            Debug.Log((playerTransform.position - this.transform.position).magnitude + ", " + cameraHit.distance);
+        }
+
+        if (cameraHit.collider != null && (playerTransform.position - this.transform.position).magnitude > cameraHit.distance)
+        {
+            Debug.Log("cameraHit.point = " + cameraHit.point);
+            this.transform.position = cameraHit.point;
+        }
     }
 
     public void SwitchForwardCameraVector()
