@@ -536,6 +536,7 @@ public class Controller : MonoBehaviour
         {
             if (groundcheck.collider.tag == "Killzone")
             {
+                gameController.Respawn();
                 //this.transform.position = respawnPoint.transform.position;
             }
         }

@@ -85,5 +85,8 @@ public class GameController : MonoBehaviour
     {
         return transform;
     }
-
+    public void Respawn()
+    {
+        loadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }
