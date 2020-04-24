@@ -5,7 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/OskarsTestScene.unity
     guid: f091825680f203049ab90f7e8be20572
+  - enabled: 1
+    path: Assets/Scenes/Meny.unity
+    guid: ebaf80f9dea152e4e8931b4cba8e2f97
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: 49c1df3cd38301844ac9a5a13fa9d270
+  - enabled: 0
+    path: Assets/Scenes/MainScene.unity
+    guid: 4fe7478e742902f4c82d571e2de121d1
   m_configObjects: {}
