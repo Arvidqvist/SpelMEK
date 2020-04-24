@@ -59,29 +59,37 @@ public class CameraController : MonoBehaviour
         //      Makes the camera look at the player with the up of the player as the up of the camera
         transform.LookAt(playerTransform.position, playerTransform.up);
 
-
+        //TODO:REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        //Camera not going through walls part of the script
+        //horribly borked
+        /*
         Physics.SphereCast(transform.position,
                            cameraRadius,
                            playerTransform.position,
                            out RaycastHit cameraHit,
-                           (playerTransform.position - this.transform.position).magnitude,
+                           float.MaxValue,
                            cameraCollisionLayer);
+        Debug.Log((playerTransform.position - this.transform.position).magnitude + ", " + cameraHit.distance);
 
         if (cameraHit.collider != null)
         {
-            Debug.Log("cameraHit.collider != null");
+            Debug.Log("cameraHit.collider = " + cameraHit.collider + ", cameraHit.distance = " + cameraHit.distance);
         }
 
         if ((playerTransform.position - this.transform.position).magnitude > cameraHit.distance)
         {
-            Debug.Log((playerTransform.position - this.transform.position).magnitude + ", " + cameraHit.distance);
+            Debug.Log("(" + playerTransform.position + "-" + this.transform.position + ").magnitude = " +
+                            (playerTransform.position - this.transform.position).magnitude +
+                            ", camerahit.distance = " + cameraHit.distance);
         }
 
         if (cameraHit.collider != null && (playerTransform.position - this.transform.position).magnitude > cameraHit.distance)
         {
-            Debug.Log("cameraHit.point = " + cameraHit.point);
+            //Debug.Log("cameraHit.point = " + cameraHit.point);
             this.transform.position = cameraHit.point;
         }
+        */
+
     }
 
     public void SwitchForwardCameraVector()
