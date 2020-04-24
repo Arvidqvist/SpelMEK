@@ -5,7 +5,7 @@ public class PlatformMoving : MovingPlatformStateMachine
     [Tooltip("this gets set to the startposition of your platform Automatically")]
     public Vector3 startPosition;
     [Tooltip("Set this position to the position you want your platform to move to")]
-    public Vector3 endPositioon;
+    public Vector3 endPosition;
     [Tooltip("the position the platform is currently moving towards (dont touch! it sets it self")]
     public Vector3 targetPosition;
     [Tooltip("click this to test the freeze")]
@@ -18,6 +18,9 @@ public class PlatformMoving : MovingPlatformStateMachine
     public float platformSpeed = 5f;
     [Tooltip("Sets itself and will be used so that the player will inherit the speed of the platform")]
     public Vector3 velocity;
+
+    public GameObject startPositionObject = null;
+    public GameObject targetPositionObject = null;
 
     void Start()
     {
@@ -66,32 +69,30 @@ public class MovingState : BasePlatformState
     public MovingState(PlatformMoving platformMoving) : base(platformMoving)
     {
     }
+
     public override void Start()
     {
-        if (PlatformMoving.startPosition.magnitude == 0)
-        {
-            PlatformMoving.startPosition = PlatformMoving.transform.position;
-            PlatformMoving.targetPosition = PlatformMoving.endPositioon;
-        }
-        
+        PlatformMoving.transform.position = PlatformMoving.startPositionObject.transform.position;
+
+        PlatformMoving.startPosition = PlatformMoving.startPositionObject.transform.position;
+        PlatformMoving.targetPosition = PlatformMoving.targetPositionObject.transform.position;
     }
+
     public override void Movement()
     {
-        PlatformMoving.velocity = (PlatformMoving.targetPosition - PlatformMoving.transform.position).normalized *PlatformMoving.platformSpeed *Time.deltaTime;
+        PlatformMoving.velocity = (PlatformMoving.targetPosition - PlatformMoving.transform.position).normalized * PlatformMoving.platformSpeed * Time.deltaTime;
         PlatformMoving.transform.position = Vector3.MoveTowards(PlatformMoving.transform.position, PlatformMoving.targetPosition, PlatformMoving.platformSpeed * Time.deltaTime);
 
-        if ((PlatformMoving.transform.position - PlatformMoving.targetPosition).magnitude == 0)
+        if (PlatformMoving.transform.position == PlatformMoving.targetPositionObject.transform.position)
         {
-            if (PlatformMoving.targetPosition == PlatformMoving.endPositioon)
-            {
-                PlatformMoving.targetPosition = PlatformMoving.startPosition;
-            }
-            else if (PlatformMoving.targetPosition == PlatformMoving.startPosition)
-            {
-                PlatformMoving.targetPosition = PlatformMoving.endPositioon;
-            }
-
+            PlatformMoving.targetPosition = PlatformMoving.startPositionObject.transform.position;
         }
+
+        if (PlatformMoving.transform.position == PlatformMoving.startPositionObject.transform.position)
+        {
+            PlatformMoving.targetPosition = PlatformMoving.targetPositionObject.transform.position;
+        }
+
         if (PlatformMoving.frozen)
         {
             PlatformMoving.SetState(new FreezeState(PlatformMoving));
@@ -110,11 +111,11 @@ public class FreezeState : BasePlatformState
     }
     public override void Movement()
     {
-            if (Time.time > PlatformMoving.timeOfDefreezing)
-            {
-                PlatformMoving.frozen = false;
-                PlatformMoving.SetState(new MovingState(PlatformMoving));
-            }
+        if (Time.time > PlatformMoving.timeOfDefreezing)
+        {
+            PlatformMoving.frozen = false;
+            PlatformMoving.SetState(new MovingState(PlatformMoving));
+        }
     }
 
 }
