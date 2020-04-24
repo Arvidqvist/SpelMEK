@@ -24,7 +24,6 @@ public class CameraController : CameraStateMachince
     // Start is called before the first frame update
     void Start()
     {
-
         upVectorBeforeFlip = PlayerTransfrom.up;
         upVectorAfterFlip = Vector3.zero;
         camTransform = transform;
@@ -47,7 +46,7 @@ public abstract class CameraStateMachince : MonoBehaviour
     }
     private void LateUpdate()
     {
-        thisState.CameraPostionUpdate();
+        thisState.CameraPositionUpdate();
     }
 }
 
@@ -73,7 +72,7 @@ public abstract class BaseCameraState
         thisCameraController.currentYMouseInput -= Input.GetAxis("Mouse Y");
     }
 
-    public virtual void CameraPostionUpdate()
+    public virtual void CameraPositionUpdate()
     {
         //      Sets the rotation of the camera
         Quaternion rotation = Quaternion.Euler(-thisCameraController.currentYMouseInput, thisCameraController.currentXMouseInput, 0f);
