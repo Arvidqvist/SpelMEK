@@ -560,7 +560,7 @@ public class Controller : MonoBehaviour
         }
         if (direction.magnitude < 0.1)
         {
-            Decelerate(direction);
+            Decelerate();
         }
         else
         {
@@ -578,7 +578,7 @@ public class Controller : MonoBehaviour
         }
     }
 
-    void Decelerate(Vector3 direction)
+    void Decelerate()
     {
         Vector3 tempVelocity = velocity;
 
