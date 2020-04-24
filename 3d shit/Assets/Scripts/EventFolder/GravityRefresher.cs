@@ -58,6 +58,10 @@ namespace EventCallbacks
                 particles = deathParticles
             };
 
+            player.GetComponent<Controller>().IncreaseFlipTokens();
+
+            Debug.Log("IT HAS TOUCHED, FLIPPIES ARE NOW: " + player.GetComponent<Controller>().GetFlipTokens());
+
             events.Add(soundEvent);
             events.Add(particleEvent);
             events.Add(deathEvent);

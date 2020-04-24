@@ -8,7 +8,6 @@ namespace EventCallbacks
         List<GameObject> gravRefresherList = new List<GameObject>();
 
         public GameObject player = null;
-        public GameObject currentGravityRefresher = null;
 
         public float minDistance = 0;
         public float currentLowestDistance = 10;
@@ -36,28 +35,17 @@ namespace EventCallbacks
 
                 if (currentLowestDistance < minDistance)
                 {
-                    currentGravityRefresher = g;
-
-                    Debug.Log(currentLowestDistance + ", " + minDistance +
-                              ", I am a big stinky poopoo head! " +
-                              player.GetComponent<Controller>().GetFlipTokens() + ", " +
-                              g.transform.position);
-
-                    gravRefresherList.Remove(g);
-                    break;
+                    Debug.Log(currentLowestDistance + ", " + minDistance + ", I am a big stinky poopoo head! " + player.GetComponent<Controller>().GetFlipTokens());
                 }
-            }
 
-            if (currentGravityRefresher != null)
-            {
-                Debug.Log("current is: " + currentGravityRefresher.transform.position);
-            }
+                if (currentLowestDistance < minDistance && player.GetComponent<Controller>().GetFlipTokens() != 1)
+                {
+                    g.GetComponent<GravityRefresher>().GivePlayerFlipToken();
 
-            if (currentLowestDistance < minDistance && player.GetComponent<Controller>().GetFlipTokens() < 1)
-            {
-                currentGravityRefresher.GetComponent<GravityRefresher>().GivePlayerFlipToken();
+                    Debug.Log("IT HAS TOUCHED, FLIPPIES ARE NOW: " + player.GetComponent<Controller>().GetFlipTokens());
 
-                currentLowestDistance = 10;
+                    currentLowestDistance = 10;
+                }
             }
         }
 
