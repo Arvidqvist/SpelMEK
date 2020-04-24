@@ -108,25 +108,26 @@ public class EnemyBehaviour : MonoBehaviour
                 /*
                  * TODO: Fix inheriting moving platform velocity 
                  */
-                MovingPlatform mov = boxHit.collider.GetComponent<MovingPlatform>();
-                if (mov != null)
-                {
-                    Vector3 velocityProjected = Vector3.ProjectOnPlane(velocity, boxHit.normal);
+               // MovingPlatform mov = boxHit.collider.GetComponent<MovingPlatform>();
 
-                    Vector3 diff = mov.velocity - velocityProjected;
-                    //Debug.Log(diff + " = " + mov.velocity + " - " + velocityProjected);
+                //if (mov != null)
+                //{
+                //    Vector3 velocityProjected = Vector3.ProjectOnPlane(velocity, boxHit.normal);
 
-                    if (Mathf.Abs((mov.velocity - velocityProjected).magnitude) < staticFriction)
-                    {
-                        velocity = mov.velocity;
-                        Debug.Log("AAAAAAA");
-                    }
-                    else
-                    {
-                        velocity = diff;
-                        Debug.Log("BBBBBBB");
-                    }
-                }
+                //    Vector3 diff = mov.velocity - velocityProjected;
+                //    //Debug.Log(diff + " = " + mov.velocity + " - " + velocityProjected);
+
+                //    if (Mathf.Abs((mov.velocity - velocityProjected).magnitude) < staticFriction)
+                //    {
+                //        velocity = mov.velocity;
+                //        Debug.Log("AAAAAAA");
+                //    }
+                //    else
+                //    {
+                //        velocity = diff;
+                //        Debug.Log("BBBBBBB");
+                //    }
+                //}
             }
             else
             {
