@@ -16,7 +16,6 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
     private GameController gameController;
-    public Settings settings;
     [Header("Speed Settings")]
 
     [SerializeField]
@@ -91,7 +90,6 @@ public class Controller : MonoBehaviour
     [SerializeField]
     [Tooltip("How many times this transform can flip gravity without touching the ground")]
     private float flipTokens = 1;
-
     [Header("Non-settings")]
     [SerializeField]
     [Tooltip("How fast the transform moves, expressed in 3-dimenaional space")]
@@ -127,13 +125,12 @@ public class Controller : MonoBehaviour
 
     //This is the layer that the gravity will flip to.
     private LayerMask gravityFlipLayer;
-    public LayerMask rotateablePlatform;
+    public LayerMask moveablePlatforms;
 
     public Vector3 fakeForward = new Vector3();
     public Quaternion targetRotationFor180Flips;
     void Awake()
     {
-        settings = GameObject.FindGameObjectWithTag("GameController").GetComponent<Settings>();
         playerCamera = Camera.main.transform;
         collider = GetComponent<CapsuleCollider>();
         height = collider.height;
@@ -184,12 +181,11 @@ public class Controller : MonoBehaviour
         }
 
         FreezePower();
-        FlippingPower();
 
         gravity = gravityVector * gravityModifier * Time.deltaTime;
         velocity += gravity;
 
-        Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, groundCheckDistance + skinWidth, collisionLayer);
+        Physics.SphereCast(transform.position, radius, gravityVector, out RaycastHit groundCheck, groundCheckDistance + skinWidth, collisionLayer | moveablePlatforms);
 
         point1 = transform.position + center + (-gravityVector * ((height / 2) - radius));
         point2 = transform.position + center + (gravityVector * ((height / 2) - radius));
@@ -255,28 +251,13 @@ public class Controller : MonoBehaviour
 
         gravityFlipLayer = (gravityFlipLayer == collisionLayer) ? cubeLayer : collisionLayer;
     }
-    private void FlippingPower()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            RaycastHit rayHit = rayCastfunction(collisionLayer);
-            if (rayHit.collider != null)
-            {
-                if (rayHit.collider.TryGetComponent<RotatingPlatform>(out RotatingPlatform rotatingPlatform))
-                {
-                    rotatingPlatform.Rotate();
-                }
-            }
-        }
-    }
     private void FreezePower()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            RaycastHit rayHit = rayCastfunction(collisionLayer);
-            if (rayHit.collider != null && rayHit.collider.TryGetComponent<PlatformMoving>(out PlatformMoving platform) )
+            RaycastHit rayHit = rayCastfunction(moveablePlatforms);
+            if (rayHit.collider != null)
             {
-                //if (rayHit.collider.TryGetComponent<PlatformMoving>(out PlatformMoving platform))
                 rayHit.collider.GetComponent<PlatformMoving>().SetState(new FreezeState(rayHit.collider.GetComponent<PlatformMoving>()));
             }
 
@@ -301,7 +282,7 @@ public class Controller : MonoBehaviour
             {
                 Camera.main.GetComponent<CameraController>().upVectorBeforeFlip = -gravityVector;
                 Camera.main.GetComponent<CameraController>().upVectorAfterFlip = rayHit.normal;
-                Camera.main.GetComponent<CameraController>().SwitchForwardCameraVector();
+                Camera.main.GetComponent<CameraController>().thisState.SwitchCameraState();
                 Debug.Log("FakeForward --->   " + Camera.main.GetComponent<CameraController>().fakeForward);
                 targetRotationFor180Flips = Quaternion.AngleAxis(180, Camera.main.GetComponent<CameraController>().fakeForward) * transform.rotation;
                 gravityVector = -rayHit.normal;
@@ -326,7 +307,7 @@ public class Controller : MonoBehaviour
     }
     private RaycastHit rayCastfunction(LayerMask layersToHit)
     {
-        Physics.Raycast(transform.position, playerCamera.transform.forward, out RaycastHit rayHit, 100f, layersToHit);
+        Physics.Raycast(playerCamera.position, playerCamera.transform.forward, out RaycastHit rayHit, 100f, layersToHit);
         return rayHit;
     }
     //kan behöva brytas ut för att kunnna appliceras på plattformar fiender etc
@@ -337,7 +318,7 @@ public class Controller : MonoBehaviour
             //Vector3 point1 = transform.position + center + (-gravityVector * ((height / 2) - radius));
             //Vector3 point2 = transform.position + center + (gravityVector * ((height / 2) - radius));
 
-            Physics.CapsuleCast(point1, point2, radius, velocity.normalized, out RaycastHit hit, float.MaxValue, collisionLayer);
+            Physics.CapsuleCast(point1, point2, radius, velocity.normalized, out RaycastHit hit, float.MaxValue, collisionLayer | moveablePlatforms);
 
             //TITTA
             /*Vector3 interactDirection = new Vector3(playerCamera.forward.y, 0, playerCamera.forward.z);
@@ -491,7 +472,7 @@ public class Controller : MonoBehaviour
 
         if (groundCheck.collider != null || doubleJumped < 2)
         {
-            velocity += -gravityVector * settings.playerSettings.jumpHeight;
+            velocity += -gravityVector * jumpHeight;
             doubleJumped++;
         }
 

@@ -77,7 +77,7 @@ public class MovingState : BasePlatformState
     }
     public override void Movement()
     {
-        PlatformMoving.velocity = (PlatformMoving.targetPosition - PlatformMoving.transform.position).normalized *PlatformMoving.platformSpeed;
+        PlatformMoving.velocity = (PlatformMoving.targetPosition - PlatformMoving.transform.position).normalized *PlatformMoving.platformSpeed *Time.deltaTime;
         PlatformMoving.transform.position = Vector3.MoveTowards(PlatformMoving.transform.position, PlatformMoving.targetPosition, PlatformMoving.platformSpeed * Time.deltaTime);
 
         if ((PlatformMoving.transform.position - PlatformMoving.targetPosition).magnitude == 0)
