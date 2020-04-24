@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3898777387655010505}
   - component: {fileID: 7357097581894314442}
   - component: {fileID: 373211361977466749}
-  m_Layer: 0
-  m_Name: Plane (6)
+  m_Layer: 8
+  m_Name: Forcefield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
