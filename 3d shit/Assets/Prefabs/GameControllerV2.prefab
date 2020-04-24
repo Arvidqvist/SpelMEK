@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6518456840818583435
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6518456840818583446}
+  - component: {fileID: 6518456840818583445}
+  - component: {fileID: 6518456840818583444}
+  m_Layer: 0
+  m_Name: GameControllerV2
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6518456840818583446
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6518456840818583435}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4, y: 3, z: -40}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6518456840818583445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6518456840818583435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ca2fa7e98159a478db21d8bba8fba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControllerSettingsAtSpawn: {fileID: 0}
+  testreload: 0
+  newSceneIsLoaded: 0
+  switchActivatedMaterial: {fileID: 2100000, guid: b63df9eece8b060409ff3a1fc7278c00,
+    type: 2}
+  switchDeactivatedMaterial: {fileID: 2100000, guid: 88dac35362f69ff45905da15eceab4c2,
+    type: 2}
+--- !u!114 &6518456840818583444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6518456840818583435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 600d336898df2d54b9e9c0e2a023af0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraSettings:
+    MouseSensitivity: 1
+    cameraDistance: 10
+  playerSettings:
+    acceleration: 2
+    deceleration: 1
+    maxSpeed: 3
+    minimumSpeedCutoff: 0.1
+    staticFriction: 0.45
+    dynamicFriction: 0.25
+    airResistance: 0.25
+    gravityModifier: 1
+    skinWidth: 0.03
+    groundCheckDistance: 0.1
+    jumpHeight: 10
+    dashPower: 5
+    collisionLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    cubeLayer:
+      serializedVersion: 2
+      m_Bits: 0
