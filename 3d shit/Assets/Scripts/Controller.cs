@@ -375,25 +375,25 @@ public class Controller : MonoBehaviour
                 /*
                  * TODO: Fix inheriting moving platform velocity 
                  */
-                MovingPlatform mov = hit.collider.GetComponent<MovingPlatform>();
-                if (mov != null)
-                {
-                    Vector3 velocityProjected = Vector3.ProjectOnPlane(velocity, hit.normal);
+                //MovingPlatform mov = hit.collider.GetComponent<MovingPlatform>();
+                //if (mov != null)
+                //{
+                //    Vector3 velocityProjected = Vector3.ProjectOnPlane(velocity, hit.normal);
 
-                    Vector3 diff = mov.velocity - velocityProjected;
-                    //Debug.Log(diff + " = " + mov.velocity + " - " + velocityProjected);
+                //    Vector3 diff = mov.velocity - velocityProjected;
+                //    //Debug.Log(diff + " = " + mov.velocity + " - " + velocityProjected);
 
-                    if (Mathf.Abs((mov.velocity - velocityProjected).magnitude) < staticFriction)
-                    {
-                        velocity = mov.velocity;
-                        Debug.Log("AAAAAAA");
-                    }
-                    else
-                    {
-                        velocity = diff;
-                        Debug.Log("BBBBBBB");
-                    }
-                }
+                //    if (Mathf.Abs((mov.velocity - velocityProjected).magnitude) < staticFriction)
+                //    {
+                //        velocity = mov.velocity;
+                //        Debug.Log("AAAAAAA");
+                //    }
+                //    else
+                //    {
+                //        velocity = diff;
+                //        Debug.Log("BBBBBBB");
+                //    }
+                //}
             }
             else
             {
