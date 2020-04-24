@@ -73,7 +73,7 @@ public class GameController : MonoBehaviour
         //{
         //    ControllerSettingsAtSpawn = null;
         //}
-        ControllerSettingsAtSpawn = Controller.Instantiate(newControllerSettings, newControllerSettings.transform);
+        ControllerSettingsAtSpawn = Instantiate(newControllerSettings, newControllerSettings.transform);
         ControllerSettingsAtSpawn.tag = "PlayerReference";
         ControllerSettingsAtSpawn.gameObject.SetActive(false);
     }

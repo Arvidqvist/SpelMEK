@@ -99,7 +99,7 @@ public class Controller : MonoBehaviour
 
     [SerializeField]
     [Tooltip("Where the player should respawn in case of death")]
-    private Transform respawnPoint;
+    //private Transform respawnPoint;
 
     public Vector3 direction;
     public Vector3 the180FlipVector;
@@ -129,6 +129,7 @@ public class Controller : MonoBehaviour
     //This is the layer that the gravity will flip to.
     private LayerMask gravityFlipLayer;
     public LayerMask rotateablePlatform;
+    public LayerMask checkpointLayer;
 
     public Vector3 fakeForward = new Vector3();
     public Quaternion targetRotationFor180Flips;
@@ -140,7 +141,7 @@ public class Controller : MonoBehaviour
         height = collider.height;
         center = collider.center;
         radius = collider.radius;
-
+        checkpointLayer = LayerMask.GetMask("CheckPoint");
         cameraRadius = playerCamera.GetComponent<SphereCollider>().radius;
 
         Transform gravityBoxParent = transform.Find("GravityCubeParent");
@@ -338,7 +339,7 @@ public class Controller : MonoBehaviour
             //Vector3 point1 = transform.position + center + (-gravityVector * ((height / 2) - radius));
             //Vector3 point2 = transform.position + center + (gravityVector * ((height / 2) - radius));
 
-            Physics.CapsuleCast(point1, point2, radius, velocity.normalized, out RaycastHit hit, float.MaxValue, collisionLayer);
+            Physics.CapsuleCast(point1, point2, radius, velocity.normalized, out RaycastHit hit, float.MaxValue, collisionLayer  | checkpointLayer);
 
             //TITTA
             /*Vector3 interactDirection = new Vector3(playerCamera.forward.y, 0, playerCamera.forward.z);
@@ -350,13 +351,21 @@ public class Controller : MonoBehaviour
                 Interact(forwardHit);
                 Debug.Log("forwardHit.collider is " + forwardHit.collider.name);
             }*/
-
             if (hit.collider != null)
             {
-                Vector3 normal = hit.normal;
+                float distance = skinWidth / Vector3.Dot(velocity.normalized, hit.normal) + hit.distance;
+                if (hit.collider.TryGetComponent<CheckPoint>(out CheckPoint checkPoint) && distance < skinWidth*2)
+                {
+                    checkPoint.SetCheckPoint();
+                }
 
-                float distance = skinWidth / Vector3.Dot(velocity.normalized, normal);
-                distance += hit.distance;
+            }
+
+            //added so that the collision only works with the collision layer
+            if (hit.collider != null )
+            {
+
+                float distance = skinWidth / Vector3.Dot(velocity.normalized, hit.normal) + hit.distance;
 
                 if (distance > velocity.magnitude * Time.deltaTime)
                 {
@@ -368,7 +377,7 @@ public class Controller : MonoBehaviour
                     transform.position += velocity.normalized * distance;
                 }
 
-                Vector3 velocityBeforeNormalforce = CalculateNormalForce(velocity, normal);
+                Vector3 velocityBeforeNormalforce = CalculateNormalForce(velocity, hit.normal);
                 velocity += velocityBeforeNormalforce;
 
                 Friction(velocityBeforeNormalforce.magnitude);
@@ -527,7 +536,7 @@ public class Controller : MonoBehaviour
         {
             if (groundcheck.collider.tag == "Killzone")
             {
-                this.transform.position = respawnPoint.transform.position;
+                //this.transform.position = respawnPoint.transform.position;
             }
         }
     }

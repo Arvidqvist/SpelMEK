@@ -9,6 +9,7 @@ public class CheckPoint : MonoBehaviour
     private GameObject playerObject;
     private int currentSceneIndex;
     public bool testButton = false;
+    public bool activated = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,12 +33,14 @@ public class CheckPoint : MonoBehaviour
     }
     public void SetCheckPoint()
     {
-        if (gameController != null)
+        if (gameController != null && activated == false)
         {
             GameObject testObject = new GameObject();
             testObject.transform.SetPositionAndRotation(transform.position, GameObject.FindGameObjectWithTag("Player").transform.rotation);
             gameController.SetSpawnTransform(testObject.transform);
             gameController.SetControllerSettingsAtSpawn(GameObject.FindGameObjectWithTag("Player").GetComponent<Controller>());
+            this.GetComponent<BoxCollider>().enabled = false;
+            activated = true;
         }
        
     }
