@@ -3799,6 +3799,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Forcefield
       objectReference: {fileID: 0}
+    - target: {fileID: 733557868316759893, guid: a0f4800d7cc1c9740a749872ae7142d9,
+        type: 3}
+      propertyPath: m_TagString
+      value: Killzone
+      objectReference: {fileID: 0}
     - target: {fileID: 7044970428103132151, guid: a0f4800d7cc1c9740a749872ae7142d9,
         type: 3}
       propertyPath: m_LocalPosition.x

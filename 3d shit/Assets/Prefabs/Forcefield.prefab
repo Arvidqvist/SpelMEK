@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3898777387655010505}
   - component: {fileID: 7357097581894314442}
   - component: {fileID: 373211361977466749}
+  - component: {fileID: -4906785241567194959}
   m_Layer: 8
   m_Name: Forcefield
-  m_TagString: Untagged
+  m_TagString: Killzone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,3 +95,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &-4906785241567194959
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733557868316759893}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.000003, y: 0.0000017881416, z: 10.000003}
+  m_Center: {x: 0, y: 0, z: 0}
