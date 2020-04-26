@@ -959,8 +959,12 @@ MonoBehaviour:
   gravityVector: {x: 0, y: -1, z: 0}
   flipTokens: 1
   velocity: {x: 0, y: 0, z: 0}
-  respawnPoint: {fileID: 0}
+  direction: {x: 0, y: 0, z: 0}
+  the180FlipVector: {x: 0, y: 0, z: 0}
   rotateablePlatform:
+    serializedVersion: 2
+    m_Bits: 0
+  checkpointLayer:
     serializedVersion: 2
     m_Bits: 0
   fakeForward: {x: 0, y: 0, z: 0}
@@ -2367,13 +2371,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213bad6e151f49a4ba31f09fe8cc7ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Waypoints:
-  - {fileID: 285392109}
-  - {fileID: 138066858}
-  speed: 1
-  CurrentPoint: 1
-  velocity: {x: 0, y: 0, z: 0}
-  minDistance: 0.2
 --- !u!4 &782505062 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3260942970331375104, guid: f8e4d6b90f4707d418526694acb9741b,
@@ -2853,6 +2850,11 @@ GameObject:
   - component: {fileID: 1016402482}
   - component: {fileID: 1016402481}
   - component: {fileID: 1016402480}
+  - component: {fileID: 1016402487}
+  - component: {fileID: 1016402486}
+  - component: {fileID: 1016402485}
+  - component: {fileID: 1016402484}
+  - component: {fileID: 1016402483}
   m_Layer: 0
   m_Name: GameControllerV2
   m_TagString: GameController
@@ -2927,6 +2929,70 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1016402483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016402479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a412b2b793b0a4142a5906667570bed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1016402484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016402479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9b384a3e1d9e04bb93044836a5f53d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1016402485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016402479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8a2425b2c147c74ca0ae7f2a72d71a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1016402486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016402479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a75783c4df0da444a549cf0ef121147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1016402487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016402479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f28f965b30e120440828b40cb53b7403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  currentGravityRefresher: {fileID: 0}
+  minDistance: 0
+  currentLowestDistance: 10
 --- !u!1001 &1022478424
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4872,8 +4938,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c051f5118aeba4a82fbf5997ac2b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startPositionTransform: {fileID: 0}
+  endPositionTransform: {fileID: 0}
   startPosition: {x: 0, y: 0, z: 0}
-  endPositioon: {x: 70, y: 1.5, z: 9.7}
+  endPosition: {x: 0, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
   frozen: 0
   timeOfDefreezing: 0
