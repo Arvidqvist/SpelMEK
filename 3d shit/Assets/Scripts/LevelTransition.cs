@@ -23,7 +23,15 @@ public class LevelTransition : MonoBehaviour
     {
         if (gameController != null)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+            if (SceneManager.GetActiveScene().buildIndex <= 5)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+            }
+            else
+            {
+                SceneManager.LoadScene(0);
+            }
+
         }
     }
 }
