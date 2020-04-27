@@ -20,7 +20,10 @@ namespace EventCallbacks
                 gravRefresherList.Add(gravityRefresher);
             }
 
-            minDistance = gravRefresherList[0].GetComponent<GravityRefresher>().minDistance;
+            if (gravRefresherList.Count != 0)
+            {
+                minDistance = gravRefresherList[0].GetComponent<GravityRefresher>().minDistance;
+            }
 
             player = GameObject.FindGameObjectWithTag("Player");
         }
