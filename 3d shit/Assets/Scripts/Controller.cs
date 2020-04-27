@@ -358,6 +358,10 @@ public class Controller : MonoBehaviour
                 {
                     checkPoint.SetCheckPoint();
                 }
+                if (hit.collider.TryGetComponent<LevelTransition>(out LevelTransition levelTransition) && distance < skinWidth * 2)
+                {
+                    levelTransition.ChangeScene();
+                }
 
             }
 
