@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -891,7 +891,7 @@ PrefabInstance:
     - target: {fileID: 4358241372532031998, guid: 738698fa1eaf52d4dbfc952dab21b427,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4358241372532031998, guid: 738698fa1eaf52d4dbfc952dab21b427,
         type: 3}
@@ -1690,6 +1690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3873916139474972641, guid: 76478d97b083f144aa0ff33500ddc237, type: 3}
+    - {fileID: 4106066310627240221, guid: 76478d97b083f144aa0ff33500ddc237, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 76478d97b083f144aa0ff33500ddc237, type: 3}
 --- !u!1 &485672243
 GameObject:
@@ -2425,6 +2426,29 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1015048, y: 0.112198636, z: 1.1014827}
   m_Center: {x: 0.27537814, y: -0.0013357718, z: -0.0000019453578}
+--- !u!114 &595688315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595688312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c051f5118aeba4a82fbf5997ac2b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPositionTransform: {fileID: 0}
+  endPositionTransform: {fileID: 0}
+  parent: {fileID: 0}
+  startPosition: {x: 0, y: 0, z: 0}
+  endPosition: {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  frozen: 0
+  timeOfDefreezing: 0
+  freezeTestTime: 5
+  platformSpeed: 5
+  velocity: {x: 0, y: 0, z: 0}
 --- !u!1 &610093241 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3873916139474972655, guid: 76478d97b083f144aa0ff33500ddc237,
@@ -5998,7 +6022,7 @@ PrefabInstance:
     - target: {fileID: 7715817364542709685, guid: 969cc294b090fd34c8bebfc74619ae70,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7715817364542709685, guid: 969cc294b090fd34c8bebfc74619ae70,
         type: 3}

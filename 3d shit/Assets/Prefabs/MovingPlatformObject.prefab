@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3873916139474972643}
   - component: {fileID: 3873916139474972642}
   - component: {fileID: 3873916139474972641}
+  - component: {fileID: 4366890209543293456}
   m_Layer: 8
   m_Name: MovingPlatform
   m_TagString: Untagged
@@ -98,6 +99,29 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4366890209543293456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3873916139474972655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c051f5118aeba4a82fbf5997ac2b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPositionTransform: {fileID: 0}
+  endPositionTransform: {fileID: 0}
+  parent: {fileID: 0}
+  startPosition: {x: 0, y: 0, z: 0}
+  endPosition: {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  frozen: 0
+  timeOfDefreezing: 0
+  freezeTestTime: 5
+  platformSpeed: 5
+  velocity: {x: 0, y: 0, z: 0}
 --- !u!1 &3873916139871125300
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +161,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3873916139990384300}
-  - component: {fileID: 4106066310627240221}
   m_Layer: 0
   m_Name: MovingPlatformObject
   m_TagString: Untagged
@@ -161,29 +184,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4106066310627240221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3873916139990384299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c051f5118aeba4a82fbf5997ac2b6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startPositionTransform: {fileID: 0}
-  endPositionTransform: {fileID: 0}
-  targetPosition: {x: 0, y: 0, z: 0}
-  frozen: 0
-  timeOfDefreezing: 0
-  freezeTestTime: 5
-  platformSpeed: 5
-  velocity: {x: 0, y: 0, z: 0}
-  platform: {fileID: 0}
-  startPosition: {x: 0, y: 0, z: 0}
-  endPosition: {x: 0, y: 0, z: 0}
 --- !u!1001 &3873916138928727687
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
+using UnityEngine.Animations;
 
 public class PlatformMoving : MovingPlatformStateMachine
 {
@@ -8,6 +10,8 @@ public class PlatformMoving : MovingPlatformStateMachine
     public Transform startPositionTransform = null;
     [Tooltip("If it didn't happen automatically, insert the targetPositionObject here.")]
     public GameObject endPositionTransform = null;
+    [Tooltip("If it didn't happen automatically, insert the parent here.")]
+    public Transform parent = null;
     [Tooltip("The position that the platform starts at.")]
     public Vector3 startPosition = new Vector3(0, 0, 0);
     [Tooltip("The position that the platform moves to.")]
@@ -76,18 +80,20 @@ public class MovingState : BasePlatformState
 
     public override void Start()
     {
-        foreach (Transform child in PlatformMoving.gameObject.transform)
+        PlatformMoving.parent = PlatformMoving.transform.parent;
+
+        foreach (Transform sibling in PlatformMoving.parent)
         {
-            if (child.name == "MovingPlatform")
+            if (sibling.name == "MovingPlatform")
             {
-                PlatformMoving.startPositionTransform = child;
-                PlatformMoving.startPosition = child.position;
+                PlatformMoving.startPositionTransform = sibling;
+                PlatformMoving.startPosition = sibling.position;
             }
 
-            if (child.name == "EndPosition")
+            if (sibling.name == "EndPosition")
             {
-                PlatformMoving.endPositionTransform = child.gameObject;
-                PlatformMoving.endPosition = child.position;
+                PlatformMoving.endPositionTransform = sibling.gameObject;
+                PlatformMoving.endPosition = sibling.position;
             }
         }
 
