@@ -339,7 +339,7 @@ public class Controller : MonoBehaviour
             //Vector3 point1 = transform.position + center + (-gravityVector * ((height / 2) - radius));
             //Vector3 point2 = transform.position + center + (gravityVector * ((height / 2) - radius));
 
-            Physics.CapsuleCast(point1, point2, radius, velocity.normalized, out RaycastHit hit, float.MaxValue, collisionLayer  | checkpointLayer);
+            Physics.CapsuleCast(point1, point2, radius, velocity.normalized, out RaycastHit hit, float.MaxValue, collisionLayer | checkpointLayer);
 
             //TITTA
             /*Vector3 interactDirection = new Vector3(playerCamera.forward.y, 0, playerCamera.forward.z);
@@ -354,7 +354,7 @@ public class Controller : MonoBehaviour
             if (hit.collider != null)
             {
                 float distance = skinWidth / Vector3.Dot(velocity.normalized, hit.normal) + hit.distance;
-                if (hit.collider.TryGetComponent<CheckPoint>(out CheckPoint checkPoint) && distance < skinWidth*2)
+                if (hit.collider.TryGetComponent<CheckPoint>(out CheckPoint checkPoint) && distance < skinWidth * 2)
                 {
                     checkPoint.SetCheckPoint();
                 }
@@ -366,7 +366,7 @@ public class Controller : MonoBehaviour
             }
 
             //added so that the collision only works with the collision layer
-            if (hit.collider != null )
+            if (hit.collider != null)
             {
 
                 float distance = skinWidth / Vector3.Dot(velocity.normalized, hit.normal) + hit.distance;
@@ -418,11 +418,11 @@ public class Controller : MonoBehaviour
 
     public void Interact(RaycastHit hit)
     {
-        if (hit.collider.tag == "Switches" && Input.GetKeyDown(KeyCode.E))
+        if (hit.collider.CompareTag("Switches") && Input.GetKeyDown(KeyCode.E))
         {
             hit.collider.GetComponent<DoorSwitch>().Activate();
         }
-        else if (hit.collider.tag == "Moveable Object" && Input.GetKey(KeyCode.E))
+        else if (hit.collider.CompareTag("Moveable Object") && Input.GetKey(KeyCode.E))
         {
             hit.collider.GetComponent<MoveAbleObjects>().Move(direction * pushForce * Time.deltaTime);
         }
